@@ -220,19 +220,21 @@ const LAPDDashboard = () => {
           marginBottom: 24,
         }}>
           {/* LAPD Badge/Title Row */}
-          <div style={{display: 'flex', alignItems: 'center', gap: 16, marginBottom: 16}}>
+          <div style={{display: 'flex', alignItems: 'center', gap: 20, marginBottom: 16}}>
             <div style={{
-              width: 64, 
-              height: 64, 
+              width: 72, 
+              height: 72, 
+              minWidth: 72,
               background: T.color.gold, 
               borderRadius: '50%', 
               display: 'flex', 
               alignItems: 'center', 
               justifyContent: 'center',
               border: '3px solid white',
-              fontSize: 28,
+              fontSize: 18,
               fontWeight: 900,
               color: T.color.blue,
+              flexShrink: 0,
             }}>
               LAPD
             </div>
