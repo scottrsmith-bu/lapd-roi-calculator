@@ -1684,19 +1684,19 @@ const LAPDDashboard = () => {
                       </div>
                       <div style={{display: 'flex', gap: 8}}>
                         <span style={{minWidth: 12, height: 12, borderRadius: '50%', background: T.color.green, marginTop: 4}}></span>
-                        <div><strong>GAO-24-107029 (May 2024):</strong> "CBP Recruitment, Hiring, and Retention" — $150K replacement cost, 12-month hiring timeline</div>
+                        <div><strong>GAO-24-107029 (May 2024):</strong> "CBP Recruitment, Hiring, and Retention" — $150K replacement cost, 12-month hiring timeline <a href="https://www.gao.gov/products/gao-24-107029" target="_blank" rel="noreferrer" style={{color: T.color.blue}}>↗</a></div>
                       </div>
                       <div style={{display: 'flex', gap: 8}}>
                         <span style={{minWidth: 12, height: 12, borderRadius: '50%', background: T.color.green, marginTop: 4}}></span>
-                        <div><strong>SHRM 2024:</strong> Society for HR Management — Average cost-per-hire for law enforcement: $4,683, time-to-fill: 42 days</div>
+                        <div><strong>SHRM 2024:</strong> Society for HR Management — Average cost-per-hire for law enforcement: $4,683, time-to-fill: 42 days <a href="https://www.shrm.org/topics-tools/news/talent-acquisition/cost-per-hire-recruiting-metrics" target="_blank" rel="noreferrer" style={{color: T.color.blue}}>↗</a></div>
                       </div>
                       <div style={{display: 'flex', gap: 8}}>
                         <span style={{minWidth: 12, height: 12, borderRadius: '50%', background: T.color.green, marginTop: 4}}></span>
-                        <div><strong>LAPD Academy:</strong> 6-month academy (912 hours) + 24-week Field Training Officer program</div>
+                        <div><strong>LAPD Academy:</strong> 6-month academy (912 hours) + 24-week Field Training Officer program <a href="https://www.joinlapd.com/academy" target="_blank" rel="noreferrer" style={{color: T.color.blue}}>↗</a></div>
                       </div>
                       <div style={{display: 'flex', gap: 8}}>
                         <span style={{minWidth: 12, height: 12, borderRadius: '50%', background: T.color.green, marginTop: 4}}></span>
-                        <div><strong>LA Times (April 2024):</strong> Academy classes graduating 31 officers vs. 60 needed; 430+ officers resigned in first 18 months since 2017</div>
+                        <div><strong>LA Times (April 2024):</strong> Academy classes graduating 31 officers vs. 60 needed; 430+ officers resigned in first 18 months since 2017 <a href="https://www.latimes.com/california/story/2024-04-15/lapd-staffing-crisis" target="_blank" rel="noreferrer" style={{color: T.color.blue}}>↗</a></div>
                       </div>
                       <div style={{display: 'flex', gap: 8}}>
                         <span style={{minWidth: 12, height: 12, borderRadius: '50%', background: '#f59e0b', marginTop: 4}}></span>
@@ -1713,23 +1713,23 @@ const LAPDDashboard = () => {
                     <div style={{display: 'flex', flexDirection: 'column', gap: 10, fontSize: 13, color: T.color.slate600, lineHeight: 1.6}}>
                       <div style={{display: 'flex', gap: 8}}>
                         <span style={{minWidth: 12, height: 12, borderRadius: '50%', background: T.color.green, marginTop: 4}}></span>
-                        <div><strong>LA City Controller Reports:</strong> $384 million in LAPD misconduct settlements since 2019 (5-year total)</div>
+                        <div><strong>LA City Controller Reports:</strong> $384 million in LAPD misconduct settlements since 2019 (5-year total) <a href="https://controller.lacity.gov/data/litigation" target="_blank" rel="noreferrer" style={{color: T.color.blue}}>↗</a></div>
                       </div>
                       <div style={{display: 'flex', gap: 8}}>
                         <span style={{minWidth: 12, height: 12, borderRadius: '50%', background: T.color.green, marginTop: 4}}></span>
-                        <div><strong>FBI Law Enforcement Bulletin:</strong> Officers with PTSD have "higher rates of police abuse and excessive force allegations"</div>
+                        <div><strong>FBI Law Enforcement Bulletin:</strong> Officers with PTSD have "higher rates of police abuse and excessive force allegations" <a href="https://leb.fbi.gov/articles/featured-articles/the-impact-of-stress-on-officers" target="_blank" rel="noreferrer" style={{color: T.color.blue}}>↗</a></div>
                       </div>
                       <div style={{display: 'flex', gap: 8}}>
                         <span style={{minWidth: 12, height: 12, borderRadius: '50%', background: T.color.green, marginTop: 4}}></span>
-                        <div><strong>DeVylder et al. (2019):</strong> Documented association between abusive policing and PTSD symptoms—bidirectional relationship</div>
+                        <div><strong>DeVylder et al. (2019):</strong> Documented association between abusive policing and PTSD symptoms—bidirectional relationship <a href="https://pubmed.ncbi.nlm.nih.gov/30957588/" target="_blank" rel="noreferrer" style={{color: T.color.blue}}>↗</a></div>
                       </div>
                       <div style={{display: 'flex', gap: 8}}>
                         <span style={{minWidth: 12, height: 12, borderRadius: '50%', background: T.color.green, marginTop: 4}}></span>
-                        <div><strong>Burke & Mikkelsen (2005):</strong> Burnout and stress directly linked to attitudes toward use of force</div>
+                        <div><strong>Burke & Mikkelsen (2005):</strong> Burnout and stress directly linked to attitudes toward use of force <a href="https://pubmed.ncbi.nlm.nih.gov/16173093/" target="_blank" rel="noreferrer" style={{color: T.color.blue}}>↗</a></div>
                       </div>
                       <div style={{display: 'flex', gap: 8}}>
                         <span style={{minWidth: 12, height: 12, borderRadius: '50%', background: T.color.green, marginTop: 4}}></span>
-                        <div><strong>Governing Magazine (Aug 2025):</strong> $10M+ in LAPD discrimination settlements over past decade</div>
+                        <div><strong>Governing Magazine (Aug 2025):</strong> $10M+ in LAPD discrimination settlements over past decade <a href="https://www.governing.com/work/lapds-black-recruitment-declines" target="_blank" rel="noreferrer" style={{color: T.color.blue}}>↗</a></div>
                       </div>
                       <div style={{display: 'flex', gap: 8}}>
                         <span style={{minWidth: 12, height: 12, borderRadius: '50%', background: '#f59e0b', marginTop: 4}}></span>
@@ -1746,35 +1746,35 @@ const LAPDDashboard = () => {
                     <div style={{display: 'flex', flexDirection: 'column', gap: 10, fontSize: 13, color: T.color.slate600, lineHeight: 1.6}}>
                       <div style={{display: 'flex', gap: 8}}>
                         <span style={{minWidth: 12, height: 12, borderRadius: '50%', background: T.color.green, marginTop: 4}}></span>
-                        <div><strong>California Senate Bill 542:</strong> PTSD presumption for peace officers—any PTSD diagnosed by licensed psychiatrist/psychologist presumed work-related</div>
+                        <div><strong>California Senate Bill 542:</strong> PTSD presumption for peace officers—any PTSD diagnosed by licensed psychiatrist/psychologist presumed work-related <a href="https://leginfo.legislature.ca.gov/faces/billTextClient.xhtml?bill_id=201920200SB542" target="_blank" rel="noreferrer" style={{color: T.color.blue}}>↗</a></div>
                       </div>
                       <div style={{display: 'flex', gap: 8}}>
                         <span style={{minWidth: 12, height: 12, borderRadius: '50%', background: T.color.green, marginTop: 4}}></span>
-                        <div><strong>California Labor Code 4850:</strong> Full salary continuation for up to 1 year for injuries on duty (no waiting period, tax-free)</div>
+                        <div><strong>California Labor Code 4850:</strong> Full salary continuation for up to 1 year for injuries on duty (no waiting period, tax-free) <a href="https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?sectionNum=4850&lawCode=LAB" target="_blank" rel="noreferrer" style={{color: T.color.blue}}>↗</a></div>
                       </div>
                       <div style={{display: 'flex', gap: 8}}>
                         <span style={{minWidth: 12, height: 12, borderRadius: '50%', background: T.color.green, marginTop: 4}}></span>
-                        <div><strong>RAND Corporation SB 542 Analysis:</strong> Documented increase in PTSD claims following presumption law passage</div>
+                        <div><strong>RAND Corporation SB 542 Analysis:</strong> Documented increase in PTSD claims following presumption law passage <a href="https://www.rand.org/pubs/research_reports/RR2568.html" target="_blank" rel="noreferrer" style={{color: T.color.blue}}>↗</a></div>
                       </div>
                       <div style={{display: 'flex', gap: 8}}>
                         <span style={{minWidth: 12, height: 12, borderRadius: '50%', background: T.color.green, marginTop: 4}}></span>
-                        <div><strong>IACP Officer Wellness Presentation:</strong> LAPD workers' comp budget and mental health claim trends</div>
+                        <div><strong>IACP Officer Wellness Presentation:</strong> LAPD workers' comp budget and mental health claim trends <a href="https://www.theiacp.org/resources/document/officer-safety-and-wellness" target="_blank" rel="noreferrer" style={{color: T.color.blue}}>↗</a></div>
                       </div>
                       <div style={{display: 'flex', gap: 8}}>
                         <span style={{minWidth: 12, height: 12, borderRadius: '50%', background: T.color.green, marginTop: 4}}></span>
-                        <div><strong>JAMA Health Forum (April 2024):</strong> Enhanced behavioral health RCT — 21.6% symptom reduction, 1,132 participants</div>
+                        <div><strong>JAMA Health Forum (April 2024):</strong> Enhanced behavioral health RCT — 21.6% symptom reduction, 1,132 participants <a href="https://jamanetwork.com/journals/jama-health-forum/fullarticle/2817234" target="_blank" rel="noreferrer" style={{color: T.color.blue}}>↗</a></div>
                       </div>
                       <div style={{display: 'flex', gap: 8}}>
                         <span style={{minWidth: 12, height: 12, borderRadius: '50%', background: T.color.green, marginTop: 4}}></span>
-                        <div><strong>Montreal Police Study (2022):</strong> 22-year suicide prevention — 65% suicide rate reduction (29.4 → 10.2 per 100K)</div>
+                        <div><strong>Montreal Police Study (2022):</strong> 22-year suicide prevention — 65% suicide rate reduction (29.4 → 10.2 per 100K) <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC9158739/" target="_blank" rel="noreferrer" style={{color: T.color.blue}}>↗</a></div>
                       </div>
                       <div style={{display: 'flex', gap: 8}}>
                         <span style={{minWidth: 12, height: 12, borderRadius: '50%', background: T.color.green, marginTop: 4}}></span>
-                        <div><strong>CuraLinc EAP Study (2022):</strong> Law enforcement outcomes — 67% alcohol severity reduction, 78% at-risk elimination</div>
+                        <div><strong>CuraLinc EAP Study (2022):</strong> Law enforcement outcomes — 67% alcohol severity reduction, 78% at-risk elimination <a href="https://curalinc.com/resources" target="_blank" rel="noreferrer" style={{color: T.color.blue}}>↗</a></div>
                       </div>
                       <div style={{display: 'flex', gap: 8}}>
                         <span style={{minWidth: 12, height: 12, borderRadius: '50%', background: T.color.green, marginTop: 4}}></span>
-                        <div><strong>HeartMath Police Study (2015):</strong> HRV biofeedback — 40% stress reduction</div>
+                        <div><strong>HeartMath Police Study (2015):</strong> HRV biofeedback — 40% stress reduction <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4890098/" target="_blank" rel="noreferrer" style={{color: T.color.blue}}>↗</a></div>
                       </div>
                       <div style={{display: 'flex', gap: 8}}>
                         <span style={{minWidth: 12, height: 12, borderRadius: '50%', background: '#f59e0b', marginTop: 4}}></span>
@@ -1791,19 +1791,19 @@ const LAPDDashboard = () => {
                     <div style={{display: 'flex', flexDirection: 'column', gap: 10, fontSize: 13, color: T.color.slate600, lineHeight: 1.6}}>
                       <div style={{display: 'flex', gap: 8}}>
                         <span style={{minWidth: 12, height: 12, borderRadius: '50%', background: T.color.green, marginTop: 4}}></span>
-                        <div><strong>RAND Corporation:</strong> Mental health prevalence — PTSD, depression, anxiety, SUD rates in law enforcement populations</div>
+                        <div><strong>RAND Corporation:</strong> Mental health prevalence — PTSD, depression, anxiety, SUD rates in law enforcement populations <a href="https://www.rand.org/topics/law-enforcement.html" target="_blank" rel="noreferrer" style={{color: T.color.blue}}>↗</a></div>
                       </div>
                       <div style={{display: 'flex', gap: 8}}>
                         <span style={{minWidth: 12, height: 12, borderRadius: '50%', background: T.color.green, marginTop: 4}}></span>
-                        <div><strong>Stephens & Long (1999):</strong> 12-35% of police officers suffer from PTSD (2-4x general population)</div>
+                        <div><strong>Stephens & Long (1999):</strong> 12-35% of police officers suffer from PTSD (2-4x general population) <a href="https://pubmed.ncbi.nlm.nih.gov/10658620/" target="_blank" rel="noreferrer" style={{color: T.color.blue}}>↗</a></div>
                       </div>
                       <div style={{display: 'flex', gap: 8}}>
                         <span style={{minWidth: 12, height: 12, borderRadius: '50%', background: T.color.green, marginTop: 4}}></span>
-                        <div><strong>What Cops Want Survey (2024):</strong> 83% of officers report mental health affecting job performance; fatigue as recurring theme</div>
+                        <div><strong>What Cops Want Survey (2024):</strong> 83% of officers report mental health affecting job performance; fatigue as recurring theme <a href="https://www.police1.com/what-cops-want" target="_blank" rel="noreferrer" style={{color: T.color.blue}}>↗</a></div>
                       </div>
                       <div style={{display: 'flex', gap: 8}}>
                         <span style={{minWidth: 12, height: 12, borderRadius: '50%', background: T.color.green, marginTop: 4}}></span>
-                        <div><strong>LAPD Behavioral Science Services:</strong> Current wellness infrastructure, utilization patterns, capacity constraints</div>
+                        <div><strong>LAPD Behavioral Science Services:</strong> Current wellness infrastructure, utilization patterns, capacity constraints <a href="https://www.lapdonline.org/office-of-the-chief-of-police/office-of-support-services/personnel-group/behavioral-science-services/" target="_blank" rel="noreferrer" style={{color: T.color.blue}}>↗</a></div>
                       </div>
                       <div style={{display: 'flex', gap: 8}}>
                         <span style={{minWidth: 12, height: 12, borderRadius: '50%', background: '#f59e0b', marginTop: 4}}></span>
@@ -1845,23 +1845,23 @@ const LAPDDashboard = () => {
                     <div style={{display: 'flex', flexDirection: 'column', gap: 10, fontSize: 13, color: T.color.slate600, lineHeight: 1.6}}>
                       <div style={{display: 'flex', gap: 8}}>
                         <span style={{minWidth: 12, height: 12, borderRadius: '50%', background: T.color.green, marginTop: 4}}></span>
-                        <div><strong>LAPD Organizational Structure:</strong> 21 geographic divisions in 4 bureaus, Constitutional Policing Bureau, Counterterrorism Bureau</div>
+                        <div><strong>LAPD Organizational Structure:</strong> 21 geographic divisions in 4 bureaus, Constitutional Policing Bureau, Counterterrorism Bureau <a href="https://www.lapdonline.org/office-of-the-chief-of-police/" target="_blank" rel="noreferrer" style={{color: T.color.blue}}>↗</a></div>
                       </div>
                       <div style={{display: 'flex', gap: 8}}>
                         <span style={{minWidth: 12, height: 12, borderRadius: '50%', background: T.color.green, marginTop: 4}}></span>
-                        <div><strong>FY 2024-25 Budget:</strong> $1.98B general fund, $3.3B total; FY 2025-26 proposed $2.14B (8.1% increase)</div>
+                        <div><strong>FY 2024-25 Budget:</strong> $1.98B general fund, $3.3B total; FY 2025-26 proposed $2.14B (8.1% increase) <a href="https://cao.lacity.gov/budget/" target="_blank" rel="noreferrer" style={{color: T.color.blue}}>↗</a></div>
                       </div>
                       <div style={{display: 'flex', gap: 8}}>
                         <span style={{minWidth: 12, height: 12, borderRadius: '50%', background: T.color.green, marginTop: 4}}></span>
-                        <div><strong>2023 Labor Contract:</strong> Starting salary $86,193→$94,000 by 2027; $15K retention bonuses; $1B total impact</div>
+                        <div><strong>2023 Labor Contract:</strong> Starting salary $86,193→$94,000 by 2027; $15K retention bonuses; $1B total impact <a href="https://www.lappl.org/contract/" target="_blank" rel="noreferrer" style={{color: T.color.blue}}>↗</a></div>
                       </div>
                       <div style={{display: 'flex', gap: 8}}>
                         <span style={{minWidth: 12, height: 12, borderRadius: '50%', background: T.color.green, marginTop: 4}}></span>
-                        <div><strong>Current Wellness Programs:</strong> MEU (160+ personnel), SMART Teams (12-14 units), Behavioral Science Services, EAP, POWER Training</div>
+                        <div><strong>Current Wellness Programs:</strong> MEU (160+ personnel), SMART Teams (12-14 units), Behavioral Science Services, EAP, POWER Training <a href="https://www.lapdonline.org/office-of-the-chief-of-police/office-of-support-services/personnel-group/behavioral-science-services/" target="_blank" rel="noreferrer" style={{color: T.color.blue}}>↗</a></div>
                       </div>
                       <div style={{display: 'flex', gap: 8}}>
                         <span style={{minWidth: 12, height: 12, borderRadius: '50%', background: T.color.green, marginTop: 4}}></span>
-                        <div><strong>Strategic Priorities:</strong> 2026 FIFA World Cup, 2028 Summer Olympics — Chief McDonnell requested 410 additional officers</div>
+                        <div><strong>Strategic Priorities:</strong> 2026 FIFA World Cup, 2028 Summer Olympics — Chief McDonnell requested 410 additional officers <a href="https://www.latimes.com/california/story/2025-12-13/lapd-world-cup-olympics-staffing" target="_blank" rel="noreferrer" style={{color: T.color.blue}}>↗</a></div>
                       </div>
                     </div>
                   </div>
