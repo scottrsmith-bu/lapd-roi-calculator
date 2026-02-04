@@ -1111,15 +1111,58 @@ const LAPDDashboard = () => {
 
             {/* Comorbidity Adjustment */}
             <div style={{background: 'linear-gradient(135deg, #fef3c7 0%, #fde68a 100%)', border: '3px solid #f59e0b', borderRadius: 12, padding: 24}}>
-              <div style={{display: 'flex', alignItems: 'center', gap: 16, marginBottom: 20}}>
+              <div style={{display: 'flex', alignItems: 'center', gap: 16, marginBottom: 16}}>
                 <span style={{fontSize: 36}}>🧮</span>
                 <h2 style={{fontSize: 26, fontWeight: 800, color: '#92400e', margin: 0}}>
                   Comorbidity Adjustment
                 </h2>
               </div>
-              <p style={{fontSize: 16, color: '#78350f', lineHeight: 1.7, marginBottom: 20}}>
-                Officers often have multiple conditions (PTSD + depression + substance use). This adjustment prevents double-counting.
-              </p>
+              
+              {/* Plain English Explanation */}
+              <div style={{background: 'white', padding: 20, borderRadius: 10, marginBottom: 16, border: '2px solid #fbbf24'}}>
+                <div style={{fontSize: 16, fontWeight: 700, color: '#92400e', marginBottom: 12}}>
+                  💡 What is this and why does it matter?
+                </div>
+                <p style={{fontSize: 15, color: '#78350f', lineHeight: 1.8, margin: 0}}>
+                  Mental health conditions rarely occur alone. An officer with <strong>PTSD</strong> often also experiences <strong>depression</strong> and may develop <strong>substance use</strong> issues as a coping mechanism. If we count each condition separately, we'd count the same officer 3 times—inflating our numbers and making the model unrealistic.
+                </p>
+              </div>
+
+              {/* Visual Example */}
+              <div style={{background: 'white', padding: 20, borderRadius: 10, marginBottom: 16}}>
+                <div style={{fontSize: 15, fontWeight: 700, color: '#92400e', marginBottom: 12}}>
+                  📊 Example: Without vs. With Adjustment
+                </div>
+                <div style={{display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16}}>
+                  <div style={{background: '#fef2f2', padding: 16, borderRadius: 8, border: '2px solid #fca5a5'}}>
+                    <div style={{fontSize: 14, fontWeight: 700, color: '#991b1b', marginBottom: 8}}>❌ Without Adjustment (Inflated)</div>
+                    <div style={{fontSize: 13, color: '#7f1d1d', lineHeight: 1.7}}>
+                      • 1,500 officers with PTSD<br />
+                      • 1,500 officers with depression<br />
+                      • 1,300 officers with anxiety<br />
+                      • 2,200 officers with SUD<br />
+                      <strong style={{color: '#dc2626'}}>= 6,500 "affected officers"</strong>
+                    </div>
+                    <div style={{marginTop: 8, fontSize: 12, color: '#991b1b', fontStyle: 'italic'}}>
+                      But this counts many officers multiple times!
+                    </div>
+                  </div>
+                  <div style={{background: '#e8f4e0', padding: 16, borderRadius: 8, border: `2px solid ${T.color.green}`}}>
+                    <div style={{fontSize: 14, fontWeight: 700, color: '#166534', marginBottom: 8}}>✅ With {comorbidityOverlap}% Overlap Adjustment</div>
+                    <div style={{fontSize: 13, color: '#14532d', lineHeight: 1.7}}>
+                      • Same conditions, but...<br />
+                      • ~{comorbidityOverlap}% of officers have 2+ conditions<br />
+                      • Adjust to count each person once<br />
+                      <strong style={{color: T.color.green}}>= {calculations.uniqueAffected.toLocaleString()} unique officers</strong>
+                    </div>
+                    <div style={{marginTop: 8, fontSize: 12, color: '#166534', fontStyle: 'italic'}}>
+                      More accurate, defensible estimate
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Slider Control */}
               <div style={{background: 'white', padding: 20, borderRadius: 10}}>
                 <label style={{display: 'block', fontSize: 18, fontWeight: 700, marginBottom: 12, color: '#92400e'}}>
                   Comorbidity Overlap: {comorbidityOverlap}%
@@ -1133,12 +1176,30 @@ const LAPDDashboard = () => {
                   onChange={(e) => setComorbidityOverlap(parseInt(e.target.value))}
                   style={{width: '100%', height: 8}}
                 />
+                <div style={{display: 'flex', justifyContent: 'space-between', fontSize: 12, color: '#92400e', marginTop: 4}}>
+                  <span>0% (no overlap - less conservative)</span>
+                  <span>50% (high overlap - more conservative)</span>
+                </div>
+                
+                {/* Research Basis */}
                 <div style={{marginTop: 16, padding: 16, background: '#fffbeb', borderRadius: 8, border: '2px solid #fbbf24'}}>
-                  <div style={{fontSize: 15, color: '#78350f', lineHeight: 1.8}}>
-                    <strong>Current Impact:</strong><br />
-                    • Raw total affected: {calculations.rawTotalAffected.toLocaleString()} officers<br />
-                    • Adjusted for overlap: {calculations.uniqueAffected.toLocaleString()} unique officers<br />
-                    • Prevented double-counting: {calculations.comorbidityReduction.toLocaleString()} officers
+                  <div style={{fontSize: 14, fontWeight: 700, color: '#92400e', marginBottom: 8}}>
+                    📚 Research Basis
+                  </div>
+                  <div style={{fontSize: 13, color: '#78350f', lineHeight: 1.7}}>
+                    Studies in law enforcement populations show <strong>30-40% comorbidity</strong> is typical. Officers experiencing trauma often develop multiple conditions simultaneously. Current setting of {comorbidityOverlap}% means we assume {comorbidityOverlap}% of affected officers have multiple conditions and should only be counted once.
+                  </div>
+                </div>
+
+                {/* Impact Summary */}
+                <div style={{marginTop: 16, padding: 16, background: T.color.lightBlue, borderRadius: 8, border: `2px solid ${T.color.blue}`}}>
+                  <div style={{fontSize: 14, fontWeight: 700, color: T.color.blue, marginBottom: 8}}>
+                    📈 Model Impact
+                  </div>
+                  <div style={{fontSize: 14, color: T.color.blue, lineHeight: 1.8}}>
+                    <strong>Before adjustment:</strong> {calculations.rawTotalAffected.toLocaleString()} officers (if conditions were independent)<br />
+                    <strong>After adjustment:</strong> {calculations.uniqueAffected.toLocaleString()} unique officers<br />
+                    <strong>Reduction:</strong> {calculations.comorbidityReduction.toLocaleString()} officers no longer double-counted
                   </div>
                 </div>
               </div>
