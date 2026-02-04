@@ -865,7 +865,7 @@ const LAPDDashboard = () => {
               </div>
 
               <p style={{fontSize: 15, color: T.color.slate600, lineHeight: 1.7, marginBottom: 20}}>
-                Any evidence-based solution can be deployed at multiple scales. Consider these standard approaches:
+                Any evidence-based solution can be deployed at multiple scales. <strong style={{color: T.color.blue}}>Click to select</strong> a deployment approach:
               </p>
 
               <div style={{display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 20}}>
@@ -875,6 +875,7 @@ const LAPDDashboard = () => {
                     coverage: '5-10%', 
                     seats: '400-800 officers',
                     investment: '$200K - $400K',
+                    investmentValue: 300000,
                     target: 'Academy recruits, high-risk units',
                     timeline: '6-12 months',
                     goal: 'Prove engagement, measure early signals',
@@ -885,6 +886,7 @@ const LAPDDashboard = () => {
                     coverage: '15-25%', 
                     seats: '1,300-2,200 officers',
                     investment: '$500K - $1M',
+                    investmentValue: 750000,
                     target: 'Officers <18 months + supervisors + FTOs',
                     timeline: '12 months',
                     goal: 'Measurable retention/incident reduction',
@@ -895,22 +897,29 @@ const LAPDDashboard = () => {
                     coverage: '50%+', 
                     seats: '4,000+ officers',
                     investment: '$2M - $4M',
+                    investmentValue: 2500000,
                     target: 'Department-wide transformation',
                     timeline: '12-24 months',
                     goal: 'Culture change, maximum ROI',
                     selected: investmentLevel > 1000000
                   },
                 ].map((opt, i) => (
-                  <div key={i} style={{
-                    background: opt.selected ? T.color.lightBlue : '#f8fafc',
-                    borderRadius: 12,
-                    padding: 20,
-                    border: opt.selected ? `3px solid ${T.color.blue}` : '2px solid #e2e8f0',
-                    position: 'relative'
-                  }}>
+                  <button 
+                    key={i} 
+                    onClick={() => setInvestmentLevel(opt.investmentValue)}
+                    style={{
+                      background: opt.selected ? T.color.lightBlue : '#f8fafc',
+                      borderRadius: 12,
+                      padding: 20,
+                      border: opt.selected ? `3px solid ${T.color.blue}` : '2px solid #e2e8f0',
+                      position: 'relative',
+                      cursor: 'pointer',
+                      textAlign: 'left',
+                      transition: 'all 0.2s',
+                    }}>
                     {opt.selected && (
                       <div style={{position: 'absolute', top: -12, right: 12, background: T.color.blue, color: 'white', padding: '4px 12px', borderRadius: 6, fontSize: 11, fontWeight: 700}}>
-                        CURRENT RANGE
+                        SELECTED
                       </div>
                     )}
                     <div style={{fontSize: 20, fontWeight: 800, color: T.color.blue, marginBottom: 8}}>{opt.name}</div>
@@ -926,7 +935,7 @@ const LAPDDashboard = () => {
                     <div style={{background: 'white', padding: 10, borderRadius: 6, fontSize: 12, color: T.color.green, fontWeight: 600, border: '1px solid #e2e8f0'}}>
                       Goal: {opt.goal}
                     </div>
-                  </div>
+                  </button>
                 ))}
               </div>
             </div>
