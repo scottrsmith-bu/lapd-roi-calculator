@@ -646,156 +646,410 @@ const LAPDDashboard = () => {
         {activeTab === 'roi-model' && (
           <div style={{display: 'flex', flexDirection: 'column', gap: 24}}>
             
-            {/* Net Savings Display */}
-            <div style={{
-              background: calculations.netSavings >= 0 
-                ? 'linear-gradient(135deg, #e8f4e0 0%, #d0eac0 100%)' 
-                : 'linear-gradient(135deg, #fef2f2 0%, #fecaca 100%)',
-              border: `4px solid ${calculations.netSavings >= 0 ? T.color.green : T.color.red}`,
-              borderRadius: 16,
-              padding: '28px 40px',
-              textAlign: 'center',
-            }}>
-              <div style={{fontSize: 22, fontWeight: 600, color: calculations.netSavings >= 0 ? T.color.green : T.color.red, marginBottom: 12}}>
-                Estimated Annual Net Savings
+            {/* Section 1: Current LAPD Wellness Infrastructure */}
+            <div style={{background: 'white', borderRadius: 12, padding: 28, boxShadow: '0 4px 12px rgba(0,0,0,0.08)'}}>
+              <div style={{display: 'flex', alignItems: 'center', gap: 12, marginBottom: 20}}>
+                <span style={{fontSize: 32}}>🏥</span>
+                <h2 style={{fontSize: 24, fontWeight: 800, color: T.color.ink, margin: 0}}>
+                  Current LAPD Wellness Infrastructure
+                </h2>
               </div>
-              <div style={{fontSize: 64, fontWeight: 900, color: calculations.netSavings >= 0 ? T.color.green : T.color.red, marginBottom: 16}}>
-                {fmt(calculations.netSavings)}
+              
+              <p style={{fontSize: 15, color: T.color.slate600, lineHeight: 1.7, marginBottom: 20}}>
+                LAPD has invested in wellness programs, but most are <strong>reactive</strong> (responding to crisis) rather than <strong>proactive</strong> (preventing crisis). Understanding this gap is essential to evaluating new investments.
+              </p>
+
+              <div style={{display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 16}}>
+                {[
+                  { name: 'Mental Evaluation Unit (MEU)', detail: '160+ personnel', focus: 'Community crisis intervention', gap: 'Not officer-focused wellness' },
+                  { name: 'SMART Teams', detail: '12-14 units, 24/7', focus: 'Crisis response in field', gap: 'Reactive, not preventive' },
+                  { name: 'Behavioral Science Services', detail: 'Psychologist-led', focus: 'Fitness for duty, critical incidents', gap: 'Limited capacity for proactive care' },
+                  { name: 'Employee Assistance Program', detail: 'Traditional EAP', focus: '3-6 sessions for crisis', gap: '~3-5% utilization, stigmatized' },
+                  { name: 'POWER Training', detail: 'DOJ partnership', focus: 'Resilience workshops', gap: 'Episodic, not sustained' },
+                  { name: 'Peer Support', detail: 'Volunteer officers', focus: 'Informal support network', gap: 'No standardized training/outcomes' },
+                ].map((prog, i) => (
+                  <div key={i} style={{background: '#f8fafc', borderRadius: 10, padding: 16, border: '2px solid #e2e8f0'}}>
+                    <div style={{fontSize: 15, fontWeight: 700, color: T.color.ink, marginBottom: 4}}>{prog.name}</div>
+                    <div style={{fontSize: 13, color: T.color.blue, fontWeight: 600, marginBottom: 8}}>{prog.detail}</div>
+                    <div style={{fontSize: 12, color: T.color.slate600, marginBottom: 4}}>
+                      <strong>Focus:</strong> {prog.focus}
+                    </div>
+                    <div style={{fontSize: 12, color: T.color.red, fontStyle: 'italic'}}>
+                      <strong>Gap:</strong> {prog.gap}
+                    </div>
+                  </div>
+                ))}
               </div>
-              <div style={{fontSize: 18, color: calculations.netSavings >= 0 ? T.color.green : T.color.red}}>
-                ROI: <strong>{roiDisplay(calculations.roi)}</strong> • Total Savings: {fmt(calculations.totalPotentialSavings)} • Investment: {fmt(calculations.investmentLevel)}
+
+              <div style={{marginTop: 20, padding: 16, background: T.color.lightBlue, borderRadius: 10, border: `2px solid ${T.color.blue}`}}>
+                <div style={{fontSize: 14, fontWeight: 700, color: T.color.blue, marginBottom: 8}}>
+                  📋 Assessment Summary
+                </div>
+                <div style={{fontSize: 14, color: T.color.blue, lineHeight: 1.7}}>
+                  Current programs are valuable but predominantly <strong>reactive</strong> (post-crisis) and <strong>community-focused</strong> (not officer wellness). The gap: no scalable, proactive, continuous development system that builds officer resilience <em>before</em> behavioral health deterioration impacts retention, misconduct, and workers' comp costs.
+                </div>
               </div>
             </div>
 
-            {/* Investment Level Slider */}
-            <div style={{background: 'white', borderRadius: 12, padding: 24, boxShadow: '0 4px 12px rgba(0,0,0,0.08)', border: `2px solid ${T.color.blue}`}}>
-              <h2 style={{fontSize: 22, fontWeight: 800, color: T.color.ink, marginBottom: 20}}>
-                💰 Set Your Investment Level
-              </h2>
-              <div style={{marginBottom: 16}}>
-                <label style={{display: 'block', fontSize: 16, fontWeight: 600, color: T.color.slate600, marginBottom: 8}}>
+            {/* Section 2: Methodology Impact - Why Approach Matters */}
+            <div style={{background: 'linear-gradient(135deg, #f1f5f9 0%, #e0e7ff 100%)', border: '4px solid #64748b', borderRadius: 16, padding: 28}}>
+              <div style={{display: 'flex', alignItems: 'center', gap: 12, marginBottom: 12}}>
+                <div style={{width: 48, height: 48, background: '#475569', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 22}}>📈</div>
+                <h2 style={{fontSize: 22, fontWeight: 800, color: '#111827', margin: 0}}>
+                  Why Methodology Matters: Episodic Training vs. Continuous Development
+                </h2>
+              </div>
+              
+              <div style={{background: 'white', border: '2px solid #e5e7eb', borderRadius: 12, padding: 16, marginBottom: 16}}>
+                <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 12}}>
+                  <div style={{display: 'flex', gap: 12, flexWrap: 'wrap'}}>
+                    <span style={{display: 'inline-flex', alignItems: 'center', gap: 6, padding: '6px 12px', borderRadius: 999, fontSize: 12, fontWeight: 700, background: '#fee2e2', color: '#991b1b'}}>
+                      🔴 Episodic Training (Workshops, Seminars)
+                    </span>
+                    <span style={{display: 'inline-flex', alignItems: 'center', gap: 6, padding: '6px 12px', borderRadius: 999, fontSize: 12, fontWeight: 700, background: '#dbeafe', color: '#1e40af'}}>
+                      🔵 Continuous Development (Sustained Engagement)
+                    </span>
+                  </div>
+                  <div style={{fontSize: 12, color: '#6b7280'}}>Higher area = retained capability</div>
+                </div>
+                
+                {/* Methodology Chart */}
+                <svg viewBox="0 0 760 260" style={{width: '100%', height: 220, display: 'block'}}>
+                  <line x1="60" y1="24" x2="60" y2="220" stroke="#94a3b8" strokeWidth="2" />
+                  <line x1="60" y1="220" x2="730" y2="220" stroke="#94a3b8" strokeWidth="2" />
+                  <text x="14" y="34" fill="#475569" fontSize="11" fontWeight="700">Skill / Recall</text>
+                  <text x="690" y="250" fill="#475569" fontSize="11" fontWeight="700">Time</text>
+                  {[140, 220, 300, 380, 460, 540, 620, 700].map((x, i) => (
+                    <line key={i} x1={x} y1="220" x2={x} y2="216" stroke="#94a3b8" />
+                  ))}
+                  {[80, 120, 160, 200].map((y, i) => (
+                    <line key={i} x1="60" y1={y} x2="730" y2={y} stroke="#e5e7eb" />
+                  ))}
+                  {/* Episodic path - rapid decay */}
+                  <path d="M 60 50 C 180 46, 250 70, 320 110 C 380 144, 450 175, 730 200" fill="none" stroke="#dc2626" strokeWidth="4.5" strokeLinecap="round" />
+                  {/* Continuous path - sustained with micro-dips */}
+                  <path d="M 60 200 C 110 170, 150 160, 190 140 C 210 130, 230 120, 250 130 C 270 142, 300 120, 330 105 C 350 95, 370 90, 390 100 C 410 112, 440 98, 470 88 C 490 82, 510 78, 530 88 C 550 98, 585 86, 620 76 C 640 70, 660 66, 730 60" fill="none" stroke="#2563eb" strokeWidth="4.5" strokeLinecap="round" />
+                  {/* Callout labels */}
+                  <text x="180" y="42" fill="#991b1b" fontSize="11" fontWeight="700">Peak right after event</text>
+                  <text x="400" y="155" fill="#991b1b" fontSize="11" fontWeight="700">~70% forgotten in 24h</text>
+                  <text x="600" y="212" fill="#991b1b" fontSize="11" fontWeight="700">~90% in 30 days</text>
+                  <text x="500" y="52" fill="#1e3a8a" fontSize="11" fontWeight="700">Continuous reinforcement</text>
+                </svg>
+
+                <div style={{display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16, marginTop: 12}}>
+                  <div style={{background: '#fff7ed', border: '1px solid #fdba74', borderRadius: 8, padding: 12}}>
+                    <div style={{fontSize: 13, color: '#9a3412', fontWeight: 700, marginBottom: 6}}>Why Episodic Training Fails</div>
+                    <div style={{fontSize: 13, color: '#7c2d12', lineHeight: 1.6}}>
+                      Annual workshops spike learning, but Ebbinghaus forgetting curve shows 70% loss in 24 hours, 90% within a month. Skills aren't practiced, behaviors don't change.
+                    </div>
+                  </div>
+                  <div style={{background: '#ecfeff', border: '1px solid #67e8f9', borderRadius: 8, padding: 12}}>
+                    <div style={{fontSize: 13, color: '#155e75', fontWeight: 700, marginBottom: 6}}>Why Continuous Development Works</div>
+                    <div style={{fontSize: 13, color: '#0e7490', lineHeight: 1.6}}>
+                      Sustained engagement compounds capability. Just-in-time support at critical moments. Transforms training into behavior change. Air Force: +7% retention over 4 years.
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Section 3: Solution Approaches Comparison */}
+            <div style={{background: 'white', borderRadius: 12, padding: 28, boxShadow: '0 4px 12px rgba(0,0,0,0.08)'}}>
+              <div style={{display: 'flex', alignItems: 'center', gap: 12, marginBottom: 20}}>
+                <span style={{fontSize: 32}}>⚖️</span>
+                <h2 style={{fontSize: 24, fontWeight: 800, color: T.color.ink, margin: 0}}>
+                  Solution Approaches: What the Evidence Shows
+                </h2>
+              </div>
+
+              <p style={{fontSize: 15, color: T.color.slate600, lineHeight: 1.7, marginBottom: 20}}>
+                Not all wellness investments deliver equal returns. Research shows wide variation in effectiveness based on approach methodology.
+              </p>
+
+              <div style={{overflowX: 'auto'}}>
+                <table style={{width: '100%', borderCollapse: 'collapse', fontSize: 13}}>
+                  <thead>
+                    <tr style={{background: T.color.blue, color: 'white'}}>
+                      <th style={{padding: '12px 16px', textAlign: 'left', fontWeight: 700}}>Approach</th>
+                      <th style={{padding: '12px 16px', textAlign: 'left', fontWeight: 700}}>Typical Engagement</th>
+                      <th style={{padding: '12px 16px', textAlign: 'left', fontWeight: 700}}>Strengths</th>
+                      <th style={{padding: '12px 16px', textAlign: 'left', fontWeight: 700}}>Limitations</th>
+                      <th style={{padding: '12px 16px', textAlign: 'center', fontWeight: 700}}>Expected ROI</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {[
+                      { approach: 'Traditional EAP', engagement: '3-5%', strengths: 'Low cost, familiar', limitations: 'Reactive, stigmatized, low utilization', roi: 'Low', roiColor: '#dc2626' },
+                      { approach: 'Episodic Training', engagement: 'One-time', strengths: 'Easy to implement', limitations: '70% forgotten in 24h, no behavior change', roi: 'Low', roiColor: '#dc2626' },
+                      { approach: 'Executive Coaching', engagement: 'High (limited)', strengths: 'Deep impact for leaders', limitations: '$15K+/person, can\'t scale to frontline', roi: 'Medium', roiColor: '#f59e0b' },
+                      { approach: 'Digital Wellness Apps', engagement: 'Drops off', strengths: 'Scalable, low stigma', limitations: 'No personalization, no accountability', roi: 'Low-Med', roiColor: '#f59e0b' },
+                      { approach: 'Peer Support Programs', engagement: 'Variable', strengths: 'Trusted, relatable', limitations: 'Inconsistent quality, no clinical training', roi: 'Medium', roiColor: '#f59e0b' },
+                      { approach: 'Integrated Platform', engagement: '60%+ sustained', strengths: 'Proactive, scalable, measurable', limitations: 'Higher investment, culture shift needed', roi: 'High', roiColor: '#16a34a' },
+                    ].map((row, i) => (
+                      <tr key={i} style={{background: i % 2 === 0 ? '#f8fafc' : 'white', borderBottom: '1px solid #e5e7eb'}}>
+                        <td style={{padding: '12px 16px', fontWeight: 600, color: T.color.ink}}>{row.approach}</td>
+                        <td style={{padding: '12px 16px', color: T.color.slate600}}>{row.engagement}</td>
+                        <td style={{padding: '12px 16px', color: T.color.green}}>{row.strengths}</td>
+                        <td style={{padding: '12px 16px', color: T.color.red}}>{row.limitations}</td>
+                        <td style={{padding: '12px 16px', textAlign: 'center', fontWeight: 700, color: row.roiColor}}>{row.roi}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+
+              <div style={{marginTop: 20, padding: 16, background: '#f0fdf4', borderRadius: 10, border: '2px solid #22c55e'}}>
+                <div style={{fontSize: 14, fontWeight: 700, color: T.color.green, marginBottom: 8}}>
+                  💡 Key Research Findings
+                </div>
+                <div style={{fontSize: 14, color: '#166534', lineHeight: 1.7}}>
+                  <strong>JAMA 2024:</strong> 21.6% symptom reduction from enhanced behavioral health (coaching + digital) vs. traditional EAP • 
+                  <strong> Montreal Police:</strong> 65% suicide reduction over 22 years with continuous, proactive intervention • 
+                  <strong> Air Force:</strong> +7% career commitment from sustained development model • 
+                  <strong> CuraLinc:</strong> 67% SUD severity reduction through early intervention
+                </div>
+              </div>
+            </div>
+
+            {/* Section 4: Evaluation Criteria Scorecard */}
+            <div style={{background: 'linear-gradient(135deg, #eef2ff 0%, #e0e7ff 100%)', border: '4px solid #6366f1', borderRadius: 16, padding: 28}}>
+              <div style={{display: 'flex', alignItems: 'center', gap: 12, marginBottom: 20}}>
+                <div style={{width: 48, height: 48, background: '#6366f1', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 22}}>✅</div>
+                <h2 style={{fontSize: 22, fontWeight: 800, color: '#4338ca', margin: 0}}>
+                  Solution Evaluation Criteria
+                </h2>
+              </div>
+
+              <p style={{fontSize: 15, color: '#475569', lineHeight: 1.7, marginBottom: 20}}>
+                Use this evidence-based scorecard to evaluate any wellness investment. Programs that score high on these criteria consistently deliver better outcomes.
+              </p>
+
+              <div style={{display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 16}}>
+                {[
+                  { criteria: 'Proactive vs. Reactive', weight: 'Critical', question: 'Does it build resilience before crisis, or respond after?', ideal: 'Prevention-focused, early intervention' },
+                  { criteria: 'Continuous vs. Episodic', weight: 'Critical', question: 'Is engagement sustained over months/years, or one-time?', ideal: 'Ongoing relationship, not events' },
+                  { criteria: 'Engagement Rate', weight: 'Critical', question: 'What percentage of eligible employees actually use it?', ideal: '60%+ (vs. EAP\'s 3-5%)' },
+                  { criteria: 'Stigma Reduction', weight: 'Critical', question: 'Is it framed as development or mental health treatment?', ideal: 'Professional growth framing' },
+                  { criteria: 'Scalability', weight: 'High', question: 'Can it reach 8,700+ officers, not just senior leaders?', ideal: 'Digital + human hybrid model' },
+                  { criteria: 'Personalization', weight: 'High', question: 'Is it tailored to individual needs, or one-size-fits-all?', ideal: 'Adaptive to individual goals' },
+                  { criteria: 'Evidence Base', weight: 'High', question: 'Peer-reviewed research? Results in law enforcement/military?', ideal: 'Published outcomes in similar populations' },
+                  { criteria: 'Measurable Outcomes', weight: 'High', question: 'Can you track retention, claims, incidents pre/post?', ideal: 'Clear ROI metrics and reporting' },
+                  { criteria: 'Technology + Human', weight: 'Medium', question: 'Does it combine AI/digital with human expertise?', ideal: 'Multiple modalities, 24/7 access' },
+                  { criteria: 'Just-in-Time Support', weight: 'Medium', question: 'Available when officers need it most?', ideal: 'On-demand, not appointment-based' },
+                ].map((item, i) => (
+                  <div key={i} style={{background: 'white', borderRadius: 10, padding: 16, border: '2px solid #c7d2fe'}}>
+                    <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 8}}>
+                      <div style={{fontSize: 15, fontWeight: 700, color: '#4338ca'}}>{item.criteria}</div>
+                      <div style={{fontSize: 11, fontWeight: 700, padding: '2px 8px', borderRadius: 4, background: item.weight === 'Critical' ? '#fef2f2' : item.weight === 'High' ? '#fef3c7' : '#f0f9ff', color: item.weight === 'Critical' ? '#991b1b' : item.weight === 'High' ? '#92400e' : '#0369a1'}}>
+                        {item.weight}
+                      </div>
+                    </div>
+                    <div style={{fontSize: 13, color: T.color.slate600, marginBottom: 8, fontStyle: 'italic'}}>
+                      "{item.question}"
+                    </div>
+                    <div style={{fontSize: 12, color: T.color.green, fontWeight: 600}}>
+                      ✓ Ideal: {item.ideal}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Section 5: Deployment Options */}
+            <div style={{background: 'white', borderRadius: 12, padding: 28, boxShadow: '0 4px 12px rgba(0,0,0,0.08)', border: `2px solid ${T.color.blue}`}}>
+              <div style={{display: 'flex', alignItems: 'center', gap: 12, marginBottom: 20}}>
+                <span style={{fontSize: 32}}>🚀</span>
+                <h2 style={{fontSize: 24, fontWeight: 800, color: T.color.ink, margin: 0}}>
+                  Deployment Options
+                </h2>
+              </div>
+
+              <p style={{fontSize: 15, color: T.color.slate600, lineHeight: 1.7, marginBottom: 20}}>
+                Any evidence-based solution can be deployed at multiple scales. Consider these standard approaches:
+              </p>
+
+              <div style={{display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 20}}>
+                {[
+                  { 
+                    name: 'Pilot', 
+                    coverage: '5-10%', 
+                    seats: '400-800 officers',
+                    investment: '$200K - $400K',
+                    target: 'Academy recruits, high-risk units',
+                    timeline: '6-12 months',
+                    goal: 'Prove engagement, measure early signals',
+                    selected: investmentLevel <= 400000
+                  },
+                  { 
+                    name: 'Targeted', 
+                    coverage: '15-25%', 
+                    seats: '1,300-2,200 officers',
+                    investment: '$500K - $1M',
+                    target: 'Officers <18 months + supervisors + FTOs',
+                    timeline: '12 months',
+                    goal: 'Measurable retention/incident reduction',
+                    selected: investmentLevel > 400000 && investmentLevel <= 1000000
+                  },
+                  { 
+                    name: 'Scaled', 
+                    coverage: '50%+', 
+                    seats: '4,000+ officers',
+                    investment: '$2M - $4M',
+                    target: 'Department-wide transformation',
+                    timeline: '12-24 months',
+                    goal: 'Culture change, maximum ROI',
+                    selected: investmentLevel > 1000000
+                  },
+                ].map((opt, i) => (
+                  <div key={i} style={{
+                    background: opt.selected ? T.color.lightBlue : '#f8fafc',
+                    borderRadius: 12,
+                    padding: 20,
+                    border: opt.selected ? `3px solid ${T.color.blue}` : '2px solid #e2e8f0',
+                    position: 'relative'
+                  }}>
+                    {opt.selected && (
+                      <div style={{position: 'absolute', top: -12, right: 12, background: T.color.blue, color: 'white', padding: '4px 12px', borderRadius: 6, fontSize: 11, fontWeight: 700}}>
+                        CURRENT RANGE
+                      </div>
+                    )}
+                    <div style={{fontSize: 20, fontWeight: 800, color: T.color.blue, marginBottom: 8}}>{opt.name}</div>
+                    <div style={{fontSize: 28, fontWeight: 900, color: T.color.ink, marginBottom: 4}}>{opt.coverage}</div>
+                    <div style={{fontSize: 13, color: T.color.slate600, marginBottom: 12}}>{opt.seats}</div>
+                    
+                    <div style={{fontSize: 13, color: T.color.slate600, lineHeight: 1.6, marginBottom: 12}}>
+                      <strong>Investment:</strong> {opt.investment}<br />
+                      <strong>Target:</strong> {opt.target}<br />
+                      <strong>Timeline:</strong> {opt.timeline}
+                    </div>
+                    
+                    <div style={{background: 'white', padding: 10, borderRadius: 6, fontSize: 12, color: T.color.green, fontWeight: 600, border: '1px solid #e2e8f0'}}>
+                      Goal: {opt.goal}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Section 6: ROI Calculator */}
+            <div style={{background: 'linear-gradient(135deg, #e8f4e0 0%, #d0eac0 100%)', border: `4px solid ${T.color.green}`, borderRadius: 16, padding: 28}}>
+              <div style={{display: 'flex', alignItems: 'center', gap: 12, marginBottom: 20}}>
+                <span style={{fontSize: 32}}>💰</span>
+                <h2 style={{fontSize: 24, fontWeight: 800, color: T.color.green, margin: 0}}>
+                  ROI Calculator: Model Your Investment
+                </h2>
+              </div>
+
+              {/* Net Savings Display */}
+              <div style={{
+                background: 'white',
+                border: `3px solid ${calculations.netSavings >= 0 ? T.color.green : T.color.red}`,
+                borderRadius: 12,
+                padding: '24px 32px',
+                textAlign: 'center',
+                marginBottom: 24,
+              }}>
+                <div style={{fontSize: 18, fontWeight: 600, color: T.color.slate600, marginBottom: 8}}>
+                  Estimated Annual Net Savings
+                </div>
+                <div style={{fontSize: 56, fontWeight: 900, color: calculations.netSavings >= 0 ? T.color.green : T.color.red, marginBottom: 8}}>
+                  {fmt(calculations.netSavings)}
+                </div>
+                <div style={{fontSize: 16, color: T.color.slate600}}>
+                  ROI: <strong style={{color: calculations.netSavings >= 0 ? T.color.green : T.color.red}}>{roiDisplay(calculations.roi)}</strong> • 
+                  Total Potential Savings: {fmt(calculations.totalPotentialSavings)} • 
+                  Investment: {fmt(calculations.investmentLevel)}
+                </div>
+              </div>
+
+              {/* Investment Slider */}
+              <div style={{background: 'white', borderRadius: 12, padding: 20, marginBottom: 20}}>
+                <label style={{display: 'block', fontSize: 16, fontWeight: 700, color: T.color.ink, marginBottom: 12}}>
                   Annual Investment: {fmt(investmentLevel)}
                 </label>
                 <input
                   type="range"
                   min="100000"
-                  max="5000000"
+                  max="4000000"
                   step="50000"
                   value={investmentLevel}
                   onChange={(e) => setInvestmentLevel(parseInt(e.target.value))}
-                  style={{width: '100%', height: 8}}
+                  style={{width: '100%', height: 8, marginBottom: 8}}
                 />
-                <div style={{display: 'flex', justifyContent: 'space-between', fontSize: 12, color: '#64748b', marginTop: 4}}>
+                <div style={{display: 'flex', justifyContent: 'space-between', fontSize: 12, color: '#64748b'}}>
                   <span>$100K (Pilot)</span>
-                  <span>$2.5M (Mid-Scale)</span>
-                  <span>$5M (Full Scale)</span>
+                  <span>$1M (Targeted)</span>
+                  <span>$2.5M (Scaled)</span>
+                  <span>$4M (Full)</span>
+                </div>
+                
+                <div style={{display: 'flex', gap: 10, marginTop: 16, flexWrap: 'wrap'}}>
+                  {[
+                    { label: 'Pilot ($250K)', value: 250000 },
+                    { label: 'Targeted ($750K)', value: 750000 },
+                    { label: 'Mid-Scale ($1.5M)', value: 1500000 },
+                    { label: 'Scaled ($2.5M)', value: 2500000 },
+                  ].map((opt) => (
+                    <button
+                      key={opt.value}
+                      onClick={() => setInvestmentLevel(opt.value)}
+                      style={{
+                        padding: '8px 14px',
+                        fontSize: 13,
+                        fontWeight: 600,
+                        border: investmentLevel === opt.value ? `2px solid ${T.color.green}` : '2px solid #e2e8f0',
+                        borderRadius: 8,
+                        background: investmentLevel === opt.value ? '#dcfce7' : 'white',
+                        cursor: 'pointer',
+                        color: investmentLevel === opt.value ? T.color.green : T.color.slate600,
+                      }}>
+                      {opt.label}
+                    </button>
+                  ))}
                 </div>
               </div>
-              
-              {/* Quick Investment Buttons */}
-              <div style={{display: 'flex', gap: 12, marginTop: 16}}>
-                {[
-                  { label: 'Pilot ($250K)', value: 250000 },
-                  { label: 'Targeted ($500K)', value: 500000 },
-                  { label: 'Mid-Scale ($1M)', value: 1000000 },
-                  { label: 'Full Scale ($2.5M)', value: 2500000 },
-                ].map((opt) => (
-                  <button
-                    key={opt.value}
-                    onClick={() => setInvestmentLevel(opt.value)}
-                    style={{
-                      padding: '10px 16px',
-                      fontSize: 13,
-                      fontWeight: 600,
-                      border: investmentLevel === opt.value ? `2px solid ${T.color.blue}` : '2px solid #e2e8f0',
-                      borderRadius: 8,
-                      background: investmentLevel === opt.value ? T.color.lightBlue : 'white',
-                      cursor: 'pointer',
-                      color: investmentLevel === opt.value ? T.color.blue : T.color.slate600,
-                    }}>
-                    {opt.label}
-                  </button>
-                ))}
-              </div>
-            </div>
 
-            {/* Improvement Targets */}
-            <div style={{background: 'white', borderRadius: 12, padding: 24, boxShadow: '0 4px 12px rgba(0,0,0,0.08)', border: '2px solid #f59e0b'}}>
-              <h2 style={{fontSize: 22, fontWeight: 800, color: T.color.ink, marginBottom: 8}}>
-                🎯 Set Improvement Targets
-              </h2>
-              <p style={{fontSize: 14, color: T.color.slate600, marginBottom: 20}}>
-                Adjust the improvement percentages you believe are achievable. The model will show the resulting savings.
-              </p>
-              
-              <div style={{display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 24}}>
-                {/* Retention Target */}
-                <div style={{background: '#f8fafc', padding: 20, borderRadius: 10, border: '2px solid #e2e8f0'}}>
-                  <div style={{fontSize: 16, fontWeight: 700, color: T.color.ink, marginBottom: 12}}>
-                    💼 Retention Improvement
+              {/* Improvement Targets */}
+              <div style={{display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 16}}>
+                <div style={{background: 'white', padding: 16, borderRadius: 10}}>
+                  <div style={{fontSize: 14, fontWeight: 700, color: T.color.ink, marginBottom: 10}}>💼 Retention Impact</div>
+                  <div style={{fontSize: 13, color: T.color.slate600, marginBottom: 8}}>
+                    Target: {retentionImprovementTarget}% reduction
                   </div>
-                  <div style={{marginBottom: 12}}>
-                    <label style={{fontSize: 14, fontWeight: 600, color: T.color.slate600}}>
-                      Target: {retentionImprovementTarget}% reduction in behavioral separations
-                    </label>
-                    <input
-                      type="range"
-                      min="5"
-                      max="40"
-                      value={retentionImprovementTarget}
-                      onChange={(e) => setRetentionImprovementTarget(parseInt(e.target.value))}
-                      style={{width: '100%', marginTop: 8}}
-                    />
+                  <input type="range" min="5" max="40" value={retentionImprovementTarget}
+                    onChange={(e) => setRetentionImprovementTarget(parseInt(e.target.value))}
+                    style={{width: '100%', marginBottom: 8}} />
+                  <div style={{fontSize: 14, fontWeight: 700, color: T.color.green}}>
+                    Savings: {fmt(calculations.retentionSavings)}
                   </div>
-                  <div style={{background: '#e8f4e0', padding: 12, borderRadius: 8, fontSize: 14, color: T.color.green}}>
-                    <strong>Projected Savings:</strong> {fmt(calculations.retentionSavings)}<br />
-                    <span style={{fontSize: 12}}>({calculations.separationsPrevented} separations prevented)</span>
+                  <div style={{fontSize: 11, color: T.color.slate600}}>
+                    ({calculations.separationsPrevented} separations prevented)
                   </div>
                 </div>
 
-                {/* Misconduct Target */}
-                <div style={{background: '#f8fafc', padding: 20, borderRadius: 10, border: '2px solid #e2e8f0'}}>
-                  <div style={{fontSize: 16, fontWeight: 700, color: T.color.ink, marginBottom: 12}}>
-                    ⚖️ Misconduct Reduction
+                <div style={{background: 'white', padding: 16, borderRadius: 10}}>
+                  <div style={{fontSize: 14, fontWeight: 700, color: T.color.ink, marginBottom: 10}}>⚖️ Misconduct Impact</div>
+                  <div style={{fontSize: 13, color: T.color.slate600, marginBottom: 8}}>
+                    Target: {misconductReductionTarget}% reduction
                   </div>
-                  <div style={{marginBottom: 12}}>
-                    <label style={{fontSize: 14, fontWeight: 600, color: T.color.slate600}}>
-                      Target: {misconductReductionTarget}% reduction in behavioral-linked settlements
-                    </label>
-                    <input
-                      type="range"
-                      min="5"
-                      max="40"
-                      value={misconductReductionTarget}
-                      onChange={(e) => setMisconductReductionTarget(parseInt(e.target.value))}
-                      style={{width: '100%', marginTop: 8}}
-                    />
-                  </div>
-                  <div style={{background: '#e8f4e0', padding: 12, borderRadius: 8, fontSize: 14, color: T.color.green}}>
-                    <strong>Projected Savings:</strong> {fmt(calculations.misconductSavings)}
+                  <input type="range" min="5" max="40" value={misconductReductionTarget}
+                    onChange={(e) => setMisconductReductionTarget(parseInt(e.target.value))}
+                    style={{width: '100%', marginBottom: 8}} />
+                  <div style={{fontSize: 14, fontWeight: 700, color: T.color.green}}>
+                    Savings: {fmt(calculations.misconductSavings)}
                   </div>
                 </div>
 
-                {/* Workers' Comp Target */}
-                <div style={{background: '#f8fafc', padding: 20, borderRadius: 10, border: '2px solid #e2e8f0'}}>
-                  <div style={{fontSize: 16, fontWeight: 700, color: T.color.ink, marginBottom: 12}}>
-                    🏥 Workers' Comp Reduction
+                <div style={{background: 'white', padding: 16, borderRadius: 10}}>
+                  <div style={{fontSize: 14, fontWeight: 700, color: T.color.ink, marginBottom: 10}}>🏥 Workers' Comp Impact</div>
+                  <div style={{fontSize: 13, color: T.color.slate600, marginBottom: 8}}>
+                    Target: {wcClaimReductionTarget}% reduction
                   </div>
-                  <div style={{marginBottom: 12}}>
-                    <label style={{fontSize: 14, fontWeight: 600, color: T.color.slate600}}>
-                      Target: {wcClaimReductionTarget}% reduction in mental health claims
-                    </label>
-                    <input
-                      type="range"
-                      min="5"
-                      max="40"
-                      value={wcClaimReductionTarget}
-                      onChange={(e) => setWcClaimReductionTarget(parseInt(e.target.value))}
-                      style={{width: '100%', marginTop: 8}}
-                    />
-                  </div>
-                  <div style={{background: '#e8f4e0', padding: 12, borderRadius: 8, fontSize: 14, color: T.color.green}}>
-                    <strong>Projected Savings:</strong> {fmt(calculations.wcSavings)}
+                  <input type="range" min="5" max="40" value={wcClaimReductionTarget}
+                    onChange={(e) => setWcClaimReductionTarget(parseInt(e.target.value))}
+                    style={{width: '100%', marginBottom: 8}} />
+                  <div style={{fontSize: 14, fontWeight: 700, color: T.color.green}}>
+                    Savings: {fmt(calculations.wcSavings)}
                   </div>
                 </div>
               </div>
@@ -827,7 +1081,7 @@ const LAPDDashboard = () => {
                 </div>
               </div>
               <div style={{marginTop: 16, padding: 12, background: 'white', borderRadius: 8, fontSize: 14, color: '#78350f'}}>
-                <strong>Key Insight:</strong> Because wellness interventions impact all three cost categories simultaneously, actual improvements compound. Even modest improvements across all three categories exceed break-even thresholds.
+                <strong>Key Insight:</strong> Because effective wellness interventions impact all three cost categories simultaneously, actual improvements compound. Even modest improvements across all three categories exceed break-even thresholds—explaining why integrated platforms consistently outperform single-point solutions.
               </div>
             </div>
           </div>
