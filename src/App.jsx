@@ -232,7 +232,7 @@ const LAPDDashboard = () => {
       <div style={container}>
         <div style={{ background: `linear-gradient(135deg, ${T.color.blue} 0%, #001a33 100%)`, borderRadius: 16, padding: '24px 32px', boxShadow: '0 8px 32px rgba(0,51,102,0.3)', border: `3px solid ${T.color.gold}`, marginBottom: 24 }}>
           <div style={{display: 'flex', alignItems: 'center', gap: 20, marginBottom: 16}}>
-            <img src={LAPD_BADGE} alt="LAPD Badge" style={{ width: 72, height: 72, minWidth: 72, objectFit: 'contain', flexShrink: 0 }} />
+            <img src={LAPD_BADGE} alt="LAPD Badge" style={{ width: 100, height: 100, minWidth: 100, objectFit: 'contain', flexShrink: 0 }} />
             <div>
               <h1 style={{fontSize: 28, fontWeight: 900, color: T.color.gold, margin: 0, lineHeight: 1.2}}>LAPD Workforce Sustainability Calculator</h1>
               <p style={{fontSize: 14, color: '#94a3b8', margin: '4px 0 0 0'}}>Decision Support Tool for Officer Wellness Investment Planning</p>
