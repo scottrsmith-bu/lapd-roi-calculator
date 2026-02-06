@@ -349,6 +349,31 @@ const LAPDDashboard = () => {
                 <div style={{fontSize: 16, color: T.color.slate600, marginTop: 8}}>Officer Wellness ROI Analysis for LAPD Leadership</div>
               </div>
 
+              {/* Context Framing - Punchy */}
+              <div style={{marginBottom: 32}}>
+                <div style={{fontSize: 15, color: T.color.slate600, lineHeight: 1.7, marginBottom: 20, textAlign: 'center'}}>
+                  Officer behavioral health—PTSD, depression, burnout, substance use—is the common thread connecting three of LAPD's largest workforce costs. This tool models the financial case for <strong>prevention vs. status quo</strong>.
+                </div>
+                <div style={{display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 12}}>
+                  <div style={{display: 'flex', alignItems: 'center', gap: 10, padding: '12px 16px', background: 'white', borderRadius: 8, border: '2px solid #e2e8f0'}}>
+                    <div style={{width: 36, height: 36, minWidth: 36, background: T.color.blue, borderRadius: 8, display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'white', fontSize: 16, fontWeight: 800}}>1</div>
+                    <div style={{fontSize: 13, color: T.color.slate600, lineHeight: 1.4}}><strong style={{color: T.color.ink}}>One root cause, three cost symptoms.</strong> Untreated behavioral health drives attrition, force incidents, and WC claims simultaneously.</div>
+                  </div>
+                  <div style={{display: 'flex', alignItems: 'center', gap: 10, padding: '12px 16px', background: 'white', borderRadius: 8, border: '2px solid #e2e8f0'}}>
+                    <div style={{width: 36, height: 36, minWidth: 36, background: T.color.blue, borderRadius: 8, display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'white', fontSize: 16, fontWeight: 800}}>2</div>
+                    <div style={{fontSize: 13, color: T.color.slate600, lineHeight: 1.4}}><strong style={{color: T.color.ink}}>Current programs activate after crisis.</strong> The gap: no scalable system that builds resilience <em>before</em> officers reach crisis.</div>
+                  </div>
+                  <div style={{display: 'flex', alignItems: 'center', gap: 10, padding: '12px 16px', background: 'white', borderRadius: 8, border: '2px solid #e2e8f0'}}>
+                    <div style={{width: 36, height: 36, minWidth: 36, background: T.color.blue, borderRadius: 8, display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'white', fontSize: 16, fontWeight: 800}}>3</div>
+                    <div style={{fontSize: 13, color: T.color.slate600, lineHeight: 1.4}}><strong style={{color: T.color.ink}}>52+ sources, deliberately conservative.</strong> Every assumption is adjustable—validate with your own division's data.</div>
+                  </div>
+                  <div style={{display: 'flex', alignItems: 'center', gap: 10, padding: '12px 16px', background: 'white', borderRadius: 8, border: '2px solid #e2e8f0'}}>
+                    <div style={{width: 36, height: 36, minWidth: 36, background: T.color.blue, borderRadius: 8, display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'white', fontSize: 16, fontWeight: 800}}>4</div>
+                    <div style={{fontSize: 13, color: T.color.slate600, lineHeight: 1.4}}><strong style={{color: T.color.ink}}>World Cup 2026 & Olympics 2028.</strong> LAPD needs 410+ officers it doesn't have. Retention is now mission-critical.</div>
+                  </div>
+                </div>
+              </div>
+
               <div style={{display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 24, marginBottom: 32}}>
                 <div style={{background: '#fef2f2', border: '3px solid #dc2626', borderRadius: 12, padding: 24}}>
                   <div style={{fontSize: 16, fontWeight: 700, color: '#991b1b', marginBottom: 12}}>📉 The Problem</div>
@@ -382,11 +407,10 @@ const LAPDDashboard = () => {
                 <div style={{background: '#fef3c7', border: '3px solid #f59e0b', borderRadius: 12, padding: 24}}>
                   <div style={{fontSize: 16, fontWeight: 700, color: '#92400e', marginBottom: 12}}>🎯 The Ask</div>
                   <div style={{fontSize: 14, color: '#78350f', lineHeight: 1.8}}>
-                    Evaluate deployment options using this calculator:<br />
-                    • Pilot: ~{fmtCompact(Math.round(250000 * calculations.orgScaleFactor / 10000) * 10000 || 25000)}<br />
-                    • Targeted: ~{fmtCompact(Math.round(750000 * calculations.orgScaleFactor / 10000) * 10000 || 80000)}<br />
-                    • Scaled: ~{fmtCompact(Math.round(2500000 * calculations.orgScaleFactor / 10000) * 10000 || 270000)}<br /><br />
-                    Determine alignment with fiscal constraints and World Cup/Olympics timeline.
+                    Evaluate investing in a <strong>proactive coaching & development platform</strong> that provides 1:1 coaching, AI-powered support, and group sessions to officers continuously—not just after crisis. Three courses of action (COAs):<br />
+                    • <strong>COA 1 — Pilot:</strong> ~{fmtCompact(Math.round(250000 * calculations.orgScaleFactor / 10000) * 10000 || 25000)} (5-10% of officers, prove concept)<br />
+                    • <strong>COA 2 — Targeted:</strong> ~{fmtCompact(Math.round(750000 * calculations.orgScaleFactor / 10000) * 10000 || 80000)} (15-25%, measurable retention impact)<br />
+                    • <strong>COA 3 — Scaled:</strong> ~{fmtCompact(Math.round(2500000 * calculations.orgScaleFactor / 10000) * 10000 || 270000)} (50%+, department-wide transformation)
                   </div>
                 </div>
               </div>
@@ -406,15 +430,6 @@ const LAPDDashboard = () => {
                       <div style={{fontSize: 13, color: T.color.slate600}}>{item.desc}</div>
                     </div>
                   ))}
-                </div>
-              </div>
-
-              <div style={{background: 'linear-gradient(135deg, #f1f5f9 0%, #e0e7ff 100%)', border: '3px solid #64748b', borderRadius: 12, padding: 24, marginBottom: 32}}>
-                <h3 style={{fontSize: 20, fontWeight: 800, color: T.color.ink, marginBottom: 16}}>🔗 Why This Matters: One Root Cause, Three Cost Symptoms</h3>
-                <div style={{fontSize: 15, color: '#475569', lineHeight: 1.8}}>
-                  When officers experience behavioral health challenges—PTSD, depression, anxiety, substance use—the impact manifests across <strong>all three cost categories simultaneously</strong>. An officer struggling with untreated PTSD may be more likely to separate early, more likely to be involved in force incidents, and more likely to file workers' comp claims.
-                  <br /><br />
-                  <strong style={{color: T.color.blue}}>Traditional programs activate after crisis.</strong> The opportunity: invest in prevention—helping officers develop resilience <em>before</em> behavioral health deterioration impacts retention, misconduct, and workers' comp.
                 </div>
               </div>
 
@@ -676,7 +691,7 @@ const LAPDDashboard = () => {
                       { approach: 'Executive Coaching', engagement: 'High (limited)', strengths: 'Deep impact for leaders', limitations: "$15K+/person, can't scale", roi: 'Medium', roiColor: '#f59e0b' },
                       { approach: 'Digital Wellness Apps', engagement: 'Drops off', strengths: 'Scalable, low stigma', limitations: 'No personalization', roi: 'Low-Med', roiColor: '#f59e0b' },
                       { approach: 'Peer Support Programs', engagement: 'Variable', strengths: 'Trusted, relatable', limitations: 'Inconsistent quality', roi: 'Medium', roiColor: '#f59e0b' },
-                      { approach: 'Integrated Platform', engagement: '60%+ sustained', strengths: 'Proactive, scalable, measurable', limitations: 'Higher investment needed', roi: 'High', roiColor: '#16a34a' },
+                      { approach: '1:1 Coaching + AI Platform', engagement: '60%+ sustained', strengths: 'Proactive, scalable, measurable, continuous', limitations: 'Higher investment, culture shift needed', roi: 'High', roiColor: '#16a34a' },
                     ].map((row, i) => (
                       <tr key={i} style={{background: i % 2 === 0 ? '#f8fafc' : 'white', borderBottom: '1px solid #e5e7eb'}}>
                         <td style={{padding: '12px 16px', fontWeight: 600, color: T.color.ink}}>{row.approach}</td>
@@ -720,13 +735,16 @@ const LAPDDashboard = () => {
               </div>
             </div>
 
-            {/* Deployment Options */}
+            {/* Courses of Action */}
             <div style={{background: 'white', borderRadius: 12, padding: 28, boxShadow: '0 4px 12px rgba(0,0,0,0.08)', border: `2px solid ${T.color.blue}`}}>
-              <div style={{display: 'flex', alignItems: 'center', gap: 12, marginBottom: 20}}>
+              <div style={{display: 'flex', alignItems: 'center', gap: 12, marginBottom: 12}}>
                 <span style={{fontSize: 32}}>🚀</span>
-                <h2 style={{fontSize: 24, fontWeight: 800, color: T.color.ink, margin: 0}}>Deployment Options</h2>
+                <h2 style={{fontSize: 24, fontWeight: 800, color: T.color.ink, margin: 0}}>Courses of Action (COAs)</h2>
               </div>
-              <p style={{fontSize: 15, color: T.color.slate600, lineHeight: 1.7, marginBottom: 20}}><strong style={{color: T.color.blue}}>Click to select</strong> a deployment approach{calculations.orgScaleFactor < 1 ? ` (scaled for ${calculations.orgName})` : ''}:</p>
+              <p style={{fontSize: 15, color: T.color.slate600, lineHeight: 1.7, marginBottom: 8}}>
+                Each COA represents a different scale of investment in a <strong>proactive coaching and development platform</strong>—combining 1:1 professional coaching, AI-powered daily support, and group resilience sessions delivered continuously to officers (not as one-time workshops).
+              </p>
+              <p style={{fontSize: 15, color: T.color.slate600, lineHeight: 1.7, marginBottom: 20}}><strong style={{color: T.color.blue}}>Click to select a COA</strong> and see how it impacts the ROI model below{calculations.orgScaleFactor < 1 ? ` (investment scaled for ${calculations.orgName})` : ''}:</p>
               <div style={{display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 20}}>
                 {(() => {
                   const s = calculations.orgScaleFactor;
@@ -739,9 +757,9 @@ const LAPDDashboard = () => {
                   const targetedSeats = `${Math.round(calculations.currentOfficers * 0.15)}-${Math.round(calculations.currentOfficers * 0.25)}`;
                   const scaledSeats = `${Math.round(calculations.currentOfficers * 0.50)}+`;
                   return [
-                    { name: 'Pilot', coverage: '5-10%', seats: `${pilotSeats} officers`, investment: `${fmtCompact(pilotInv * 0.67)} - ${fmtCompact(pilotInv * 1.33)}`, investmentValue: pilotInv, target: 'Academy recruits, high-risk units', timeline: '6-12 months', goal: 'Prove engagement, measure early signals', selected: investmentLevel <= pilotThreshold },
-                    { name: 'Targeted', coverage: '15-25%', seats: `${targetedSeats} officers`, investment: `${fmtCompact(targetedInv * 0.67)} - ${fmtCompact(targetedInv * 1.33)}`, investmentValue: targetedInv, target: 'Officers <18 months + supervisors + FTOs', timeline: '12 months', goal: 'Measurable retention/incident reduction', selected: investmentLevel > pilotThreshold && investmentLevel <= scaledThreshold },
-                    { name: 'Scaled', coverage: '50%+', seats: `${scaledSeats} officers`, investment: `${fmtCompact(scaledInv * 0.8)} - ${fmtCompact(scaledInv * 1.6)}`, investmentValue: scaledInv, target: 'Department-wide transformation', timeline: '12-24 months', goal: 'Culture change, maximum ROI', selected: investmentLevel > scaledThreshold },
+                    { name: 'COA 1: Pilot', coverage: '5-10%', seats: `${pilotSeats} officers`, investment: `${fmtCompact(pilotInv * 0.67)} - ${fmtCompact(pilotInv * 1.33)}`, investmentValue: pilotInv, target: 'Academy recruits + highest-need units', timeline: '6-12 months', goal: 'Prove engagement rates & measure early retention signals', selected: investmentLevel <= pilotThreshold },
+                    { name: 'COA 2: Targeted', coverage: '15-25%', seats: `${targetedSeats} officers`, investment: `${fmtCompact(targetedInv * 0.67)} - ${fmtCompact(targetedInv * 1.33)}`, investmentValue: targetedInv, target: 'Early-career officers (<18mo) + FTOs + supervisors', timeline: '12 months', goal: 'Measurable retention improvement & incident reduction', selected: investmentLevel > pilotThreshold && investmentLevel <= scaledThreshold },
+                    { name: 'COA 3: Scaled', coverage: '50%+', seats: `${scaledSeats} officers`, investment: `${fmtCompact(scaledInv * 0.8)} - ${fmtCompact(scaledInv * 1.6)}`, investmentValue: scaledInv, target: 'Department-wide: all ranks, all bureaus', timeline: '12-24 months', goal: 'Culture transformation & maximum cost avoidance', selected: investmentLevel > scaledThreshold },
                   ];
                 })().map((opt, i) => (
                   <button key={i} onClick={() => setInvestmentLevel(opt.investmentValue)} style={{ background: opt.selected ? T.color.lightBlue : '#f8fafc', borderRadius: 12, padding: 20, border: opt.selected ? `3px solid ${T.color.blue}` : '2px solid #e2e8f0', position: 'relative', cursor: 'pointer', textAlign: 'left', transition: 'all 0.2s' }}>
