@@ -312,10 +312,12 @@ const LAPDDashboard = () => {
               </button>
             ))}
           </div>
+          {activeTab === 'cost-problem' && (
           <div style={{display: 'flex', gap: 2, alignItems: 'center', background: 'white', borderRadius: 12, padding: 4, border: `2px solid ${T.color.blue}`}}>
             <button onClick={() => setViewMode('field')} style={{ padding: '8px 14px', fontSize: 12, fontWeight: 700, border: 'none', borderRadius: 8, cursor: 'pointer', background: viewMode === 'field' ? T.color.blue : 'transparent', color: viewMode === 'field' ? 'white' : '#64748b' }}>🎯 Field Impact</button>
             <button onClick={() => setViewMode('enterprise')} style={{ padding: '8px 14px', fontSize: 12, fontWeight: 700, border: 'none', borderRadius: 8, cursor: 'pointer', background: viewMode === 'enterprise' ? T.color.blue : 'transparent', color: viewMode === 'enterprise' ? 'white' : '#64748b' }}>🏛️ Enterprise Costs</button>
           </div>
+          )}
         </div>
 
         {/* ===== TAB 0: EXECUTIVE SUMMARY ===== */}
@@ -1260,7 +1262,7 @@ const LAPDDashboard = () => {
                     <div style={{display: 'flex', flexDirection: 'column', gap: 12, fontSize: 13, color: T.color.slate600, lineHeight: 1.6}}>
                       <div style={{display: 'flex', gap: 8}}>
                         <span style={{minWidth: 12, height: 12, borderRadius: '50%', background: T.color.green, marginTop: 4}}></span>
-                        <div><strong>LAPD Account Planning Brief (2025):</strong> 8,738 sworn officers, 762 short of 9,500 target, 660 officers lost in 2024</div>
+                        <div><strong>LAPD Account Planning Brief (2025):</strong> 8,738 sworn officers, 762 short of 9,500 target, 660 officers lost in 2024 <a href="https://www.lapdonline.org/office-of-the-chief-of-police/" target="_blank" rel="noreferrer" style={{color: '#2563eb', textDecoration: 'underline', fontWeight: 600, marginLeft: 4}}>View Source ↗</a></div>
                       </div>
                       <div style={{display: 'flex', gap: 8}}>
                         <span style={{minWidth: 12, height: 12, borderRadius: '50%', background: T.color.green, marginTop: 4}}></span>
