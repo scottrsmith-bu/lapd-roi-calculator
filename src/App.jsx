@@ -1,6 +1,6 @@
 // ===== LAPD WORKFORCE SUSTAINABILITY ROI CALCULATOR =====
 // Complete version with Executive Summary, Organization Selector, and all features
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 
 // ===== GLOBAL STYLES & THEME =====
 function GlobalStyles() {
@@ -171,7 +171,7 @@ const LAPDDashboard = () => {
     const breakEvenWc = wcSavings > 0 ? (investmentLevel / wcSavings * 100).toFixed(1) : 'N/A';
 
     return {
-      currentOfficers, orgName: currentOrg.name, orgType: currentOrg.type,
+      currentOfficers, orgName: currentOrg.name, orgType: currentOrg.type, orgScaleFactor,
       rawTotalAffected, uniqueAffected, comorbidityReduction: rawTotalAffected - uniqueAffected,
       orgAttrition, behavioralDrivenSeparations, retentionBaseCost, separationsPrevented, retentionSavings,
       orgAnnualSettlements, behavioralLinkedMisconduct, misconductSavings,
@@ -182,6 +182,13 @@ const LAPDDashboard = () => {
   }, [selectedOrg, orgData, lapdData, behavioralAttritionShare, retentionImprovementTarget,
       misconductBehavioralLink, misconductReductionTarget, wcMentalHealthShare, wcClaimReductionTarget,
       investmentLevel, ptsdPrevalence, depressionPrevalence, anxietyPrevalence, sudPrevalence, comorbidityOverlap]);
+
+  // Reset investment level when org changes (scale to Targeted equivalent)
+  useEffect(() => {
+    const scaleFactor = orgData[selectedOrg].officers / lapdData.officers;
+    const scaledTargeted = Math.round(750000 * scaleFactor / 10000) * 10000 || 80000;
+    setInvestmentLevel(scaledTargeted);
+  }, [selectedOrg, orgData, lapdData]);
 
   // ===== HELPER FUNCTIONS =====
   const fmt = (num) => new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', minimumFractionDigits: 0, maximumFractionDigits: 0 }).format(num);
@@ -364,9 +371,9 @@ const LAPDDashboard = () => {
                   <div style={{fontSize: 16, fontWeight: 700, color: '#92400e', marginBottom: 12}}>🎯 The Ask</div>
                   <div style={{fontSize: 14, color: '#78350f', lineHeight: 1.8}}>
                     Evaluate deployment options using this calculator:<br />
-                    • Pilot: ~$250K<br />
-                    • Targeted: ~$750K<br />
-                    • Scaled: ~$2.5M<br /><br />
+                    • Pilot: ~{fmtCompact(Math.round(250000 * calculations.orgScaleFactor / 10000) * 10000 || 25000)}<br />
+                    • Targeted: ~{fmtCompact(Math.round(750000 * calculations.orgScaleFactor / 10000) * 10000 || 80000)}<br />
+                    • Scaled: ~{fmtCompact(Math.round(2500000 * calculations.orgScaleFactor / 10000) * 10000 || 270000)}<br /><br />
                     Determine alignment with fiscal constraints and World Cup/Olympics timeline.
                   </div>
                 </div>
@@ -707,13 +714,24 @@ const LAPDDashboard = () => {
                 <span style={{fontSize: 32}}>🚀</span>
                 <h2 style={{fontSize: 24, fontWeight: 800, color: T.color.ink, margin: 0}}>Deployment Options</h2>
               </div>
-              <p style={{fontSize: 15, color: T.color.slate600, lineHeight: 1.7, marginBottom: 20}}><strong style={{color: T.color.blue}}>Click to select</strong> a deployment approach:</p>
+              <p style={{fontSize: 15, color: T.color.slate600, lineHeight: 1.7, marginBottom: 20}}><strong style={{color: T.color.blue}}>Click to select</strong> a deployment approach{calculations.orgScaleFactor < 1 ? ` (scaled for ${calculations.orgName})` : ''}:</p>
               <div style={{display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 20}}>
-                {[
-                  { name: 'Pilot', coverage: '5-10%', seats: '400-800 officers', investment: '$200K - $400K', investmentValue: 300000, target: 'Academy recruits, high-risk units', timeline: '6-12 months', goal: 'Prove engagement, measure early signals', selected: investmentLevel <= 400000 },
-                  { name: 'Targeted', coverage: '15-25%', seats: '1,300-2,200 officers', investment: '$500K - $1M', investmentValue: 750000, target: 'Officers <18 months + supervisors + FTOs', timeline: '12 months', goal: 'Measurable retention/incident reduction', selected: investmentLevel > 400000 && investmentLevel <= 1000000 },
-                  { name: 'Scaled', coverage: '50%+', seats: '4,000+ officers', investment: '$2M - $4M', investmentValue: 2500000, target: 'Department-wide transformation', timeline: '12-24 months', goal: 'Culture change, maximum ROI', selected: investmentLevel > 1000000 },
-                ].map((opt, i) => (
+                {(() => {
+                  const s = calculations.orgScaleFactor;
+                  const pilotInv = Math.round(300000 * s / 10000) * 10000;
+                  const targetedInv = Math.round(750000 * s / 10000) * 10000;
+                  const scaledInv = Math.round(2500000 * s / 10000) * 10000;
+                  const pilotThreshold = Math.round(400000 * s / 10000) * 10000;
+                  const scaledThreshold = Math.round(1000000 * s / 10000) * 10000;
+                  const pilotSeats = `${Math.round(calculations.currentOfficers * 0.05)}-${Math.round(calculations.currentOfficers * 0.10)}`;
+                  const targetedSeats = `${Math.round(calculations.currentOfficers * 0.15)}-${Math.round(calculations.currentOfficers * 0.25)}`;
+                  const scaledSeats = `${Math.round(calculations.currentOfficers * 0.50)}+`;
+                  return [
+                    { name: 'Pilot', coverage: '5-10%', seats: `${pilotSeats} officers`, investment: `${fmtCompact(pilotInv * 0.67)} - ${fmtCompact(pilotInv * 1.33)}`, investmentValue: pilotInv, target: 'Academy recruits, high-risk units', timeline: '6-12 months', goal: 'Prove engagement, measure early signals', selected: investmentLevel <= pilotThreshold },
+                    { name: 'Targeted', coverage: '15-25%', seats: `${targetedSeats} officers`, investment: `${fmtCompact(targetedInv * 0.67)} - ${fmtCompact(targetedInv * 1.33)}`, investmentValue: targetedInv, target: 'Officers <18 months + supervisors + FTOs', timeline: '12 months', goal: 'Measurable retention/incident reduction', selected: investmentLevel > pilotThreshold && investmentLevel <= scaledThreshold },
+                    { name: 'Scaled', coverage: '50%+', seats: `${scaledSeats} officers`, investment: `${fmtCompact(scaledInv * 0.8)} - ${fmtCompact(scaledInv * 1.6)}`, investmentValue: scaledInv, target: 'Department-wide transformation', timeline: '12-24 months', goal: 'Culture change, maximum ROI', selected: investmentLevel > scaledThreshold },
+                  ];
+                })().map((opt, i) => (
                   <button key={i} onClick={() => setInvestmentLevel(opt.investmentValue)} style={{ background: opt.selected ? T.color.lightBlue : '#f8fafc', borderRadius: 12, padding: 20, border: opt.selected ? `3px solid ${T.color.blue}` : '2px solid #e2e8f0', position: 'relative', cursor: 'pointer', textAlign: 'left', transition: 'all 0.2s' }}>
                     {opt.selected && <div style={{position: 'absolute', top: -12, right: 12, background: T.color.blue, color: 'white', padding: '4px 12px', borderRadius: 6, fontSize: 11, fontWeight: 700}}>SELECTED</div>}
                     <div style={{fontSize: 20, fontWeight: 800, color: T.color.blue, marginBottom: 8}}>{opt.name}</div>
@@ -741,13 +759,26 @@ const LAPDDashboard = () => {
               </div>
               <div style={{background: 'white', borderRadius: 12, padding: 20, marginBottom: 20}}>
                 <label style={{display: 'block', fontSize: 16, fontWeight: 700, color: T.color.ink, marginBottom: 12}}>Annual Investment: {fmt(investmentLevel)}</label>
-                <input type="range" min="100000" max="4000000" step="50000" value={investmentLevel} onChange={(e) => setInvestmentLevel(parseInt(e.target.value))} style={{width: '100%', height: 8, marginBottom: 8}} />
-                <div style={{display: 'flex', justifyContent: 'space-between', fontSize: 12, color: '#64748b'}}><span>$100K</span><span>$1M</span><span>$2.5M</span><span>$4M</span></div>
-                <div style={{display: 'flex', gap: 10, marginTop: 16, flexWrap: 'wrap'}}>
-                  {[{ label: 'Pilot ($250K)', value: 250000 }, { label: 'Targeted ($750K)', value: 750000 }, { label: 'Mid-Scale ($1.5M)', value: 1500000 }, { label: 'Scaled ($2.5M)', value: 2500000 }].map((opt) => (
-                    <button key={opt.value} onClick={() => setInvestmentLevel(opt.value)} style={{ padding: '8px 14px', fontSize: 13, fontWeight: 600, border: investmentLevel === opt.value ? `2px solid ${T.color.green}` : '2px solid #e2e8f0', borderRadius: 8, background: investmentLevel === opt.value ? '#dcfce7' : 'white', cursor: 'pointer', color: investmentLevel === opt.value ? T.color.green : T.color.slate600 }}>{opt.label}</button>
-                  ))}
-                </div>
+                {(() => {
+                  const s = calculations.orgScaleFactor;
+                  const sliderMax = Math.round(4000000 * s / 50000) * 50000 || 200000;
+                  const sliderStep = sliderMax > 500000 ? 50000 : 10000;
+                  const pilotVal = Math.round(250000 * s / 10000) * 10000 || 25000;
+                  const targetedVal = Math.round(750000 * s / 10000) * 10000 || 80000;
+                  const midVal = Math.round(1500000 * s / 10000) * 10000 || 160000;
+                  const scaledVal = Math.round(2500000 * s / 10000) * 10000 || 270000;
+                  return (
+                    <div>
+                      <input type="range" min={Math.round(sliderMax * 0.025 / 10000) * 10000 || 10000} max={sliderMax} step={sliderStep} value={Math.min(investmentLevel, sliderMax)} onChange={(e) => setInvestmentLevel(parseInt(e.target.value))} style={{width: '100%', height: 8, marginBottom: 8}} />
+                      <div style={{display: 'flex', justifyContent: 'space-between', fontSize: 12, color: '#64748b'}}><span>{fmtCompact(sliderMax * 0.025)}</span><span>{fmtCompact(sliderMax * 0.25)}</span><span>{fmtCompact(sliderMax * 0.625)}</span><span>{fmtCompact(sliderMax)}</span></div>
+                      <div style={{display: 'flex', gap: 10, marginTop: 16, flexWrap: 'wrap'}}>
+                        {[{ label: `Pilot (${fmtCompact(pilotVal)})`, value: pilotVal }, { label: `Targeted (${fmtCompact(targetedVal)})`, value: targetedVal }, { label: `Mid-Scale (${fmtCompact(midVal)})`, value: midVal }, { label: `Scaled (${fmtCompact(scaledVal)})`, value: scaledVal }].map((opt) => (
+                          <button key={opt.value} onClick={() => setInvestmentLevel(opt.value)} style={{ padding: '8px 14px', fontSize: 13, fontWeight: 600, border: investmentLevel === opt.value ? `2px solid ${T.color.green}` : '2px solid #e2e8f0', borderRadius: 8, background: investmentLevel === opt.value ? '#dcfce7' : 'white', cursor: 'pointer', color: investmentLevel === opt.value ? T.color.green : T.color.slate600 }}>{opt.label}</button>
+                        ))}
+                      </div>
+                    </div>
+                  );
+                })()}
               </div>
               <div style={{display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 16}}>
                 {[
