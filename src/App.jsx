@@ -2193,3 +2193,5 @@ const LAPDDashboard = () => {
 </div>
 );
 };
+
+export default LAPDDashboard;
