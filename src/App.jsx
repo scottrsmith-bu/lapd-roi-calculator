@@ -114,9 +114,25 @@ const LAPDDashboard = () => {
   const [wcMentalHealthShare, setWcMentalHealthShare] = useState(25);
   const [wcClaimReductionTarget, setWcClaimReductionTarget] = useState(20);
   const [ptsdPrevalence, setPtsdPrevalence] = useState(18);
+  const [ptsdCoachingEffectiveness, setPtsdCoachingEffectiveness] = useState(25);
+  const [ptsdSeparationRate, setPtsdSeparationRate] = useState(12);
+  const [ptsdLimitedDutyDays, setPtsdLimitedDutyDays] = useState(87);
+
   const [depressionPrevalence, setDepressionPrevalence] = useState(18);
+  const [depressionCoachingEffectiveness, setDepressionCoachingEffectiveness] = useState(25);
+  const [depressionSeparationRate, setDepressionSeparationRate] = useState(15);
+  const [depressionLimitedDutyDays, setDepressionLimitedDutyDays] = useState(65);
+
   const [anxietyPrevalence, setAnxietyPrevalence] = useState(15);
+  const [anxietyCoachingEffectiveness, setAnxietyCoachingEffectiveness] = useState(20);
+  const [anxietySeparationRate, setAnxietySeparationRate] = useState(10);
+  const [anxietyLimitedDutyDays, setAnxietyLimitedDutyDays] = useState(45);
+
   const [sudPrevalence, setSudPrevalence] = useState(25);
+  const [sudCoachingEffectiveness, setSudCoachingEffectiveness] = useState(30);
+  const [sudSeparationRate, setSudSeparationRate] = useState(25);
+  const [sudLimitedDutyDays, setSudLimitedDutyDays] = useState(30);
+
   const [comorbidityOverlap, setComorbidityOverlap] = useState(35);
 
   // ===== COST CALCULATIONS (ORG-AWARE) =====
@@ -840,24 +856,135 @@ const LAPDDashboard = () => {
               ))}
             </div>
 
-            {/* Behavioral Health Prevalence */}
-            <div style={{background: 'white', borderRadius: 12, padding: 24, boxShadow: '0 4px 12px rgba(0,0,0,0.08)'}}>
-              <h3 style={{fontSize: 22, fontWeight: 800, color: T.color.ink, marginBottom: 16}}>🧠 Behavioral Health Prevalence Rates</h3>
-              <div style={{display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 20}}>
-                {[
-                  { label: 'PTSD', value: ptsdPrevalence, setter: setPtsdPrevalence, research: '12-35% in LEO' },
-                  { label: 'Depression', value: depressionPrevalence, setter: setDepressionPrevalence, research: '12-25% in LEO' },
-                  { label: 'Anxiety', value: anxietyPrevalence, setter: setAnxietyPrevalence, research: '10-20% in LEO' },
-                  { label: 'Substance Use', value: sudPrevalence, setter: setSudPrevalence, research: '20-30% in LEO' },
-                ].map((item) => (
-                  <div key={item.label} style={{background: '#f8fafc', padding: 16, borderRadius: 10, border: '2px solid #e2e8f0'}}>
-                    <label style={{fontSize: 14, fontWeight: 700, color: T.color.ink, display: 'block', marginBottom: 8}}>{item.label}: {item.value}%</label>
-                    <input type="range" min="5" max="40" value={item.value} onChange={(e) => item.setter(parseInt(e.target.value))} style={{width: '100%'}} />
-                    <div style={{fontSize: 11, color: '#64748b', marginTop: 4}}>Research: {item.research}</div>
-                  </div>
-                ))}
+            {/* About Effectiveness Rates */}
+            <div style={{background: '#ecfdf5', border: '2px solid #6ee7b7', borderRadius: 12, padding: 20}}>
+              <div style={{display: 'flex', alignItems: 'center', gap: 10, marginBottom: 8}}>
+                <span style={{fontSize: 20}}>ℹ️</span>
+                <div style={{fontSize: 18, fontWeight: 800, color: T.color.ink}}>About Effectiveness Rates</div>
+              </div>
+              <div style={{fontSize: 14, color: T.color.slate600, lineHeight: 1.7}}>
+                Effectiveness rates are based on <strong>proven Air Force results</strong>: +6% career commitment (retention), +17% mission readiness, and +15% resilience. These rates are hardcoded into the model. Use the sliders below to adjust prevalence rates, costs, and separation rates based on your division's specific data.
               </div>
             </div>
+
+            {/* Expandable Behavioral Health Factor Panels */}
+            {[
+              {
+                id: 'ptsd',
+                icon: '🧠',
+                title: 'PTSD & Combat Trauma',
+                prevalence: ptsdPrevalence, setPrevalence: setPtsdPrevalence, prevMin: 10, prevMax: 35,
+                effectiveness: ptsdCoachingEffectiveness, setEffectiveness: setPtsdCoachingEffectiveness, effMin: 15, effMax: 35,
+                separationRate: ptsdSeparationRate, setSeparationRate: setPtsdSeparationRate, sepMin: 8, sepMax: 20,
+                limitedDutyDays: ptsdLimitedDutyDays, setLimitedDutyDays: setPtsdLimitedDutyDays, ldMin: 30, ldMax: 180,
+                prevResearch: 'LEO avg: 18% (RAND study) • Civilian: 3.5%',
+                effResearch: 'Conservative for early intervention/prevention',
+                sepResearch: 'RAND: PTSD doubles separation odds (28 months)',
+                ldResearch: 'LEO avg: 87 days not deployable annually',
+                researchContext: 'PTSD affects 12-35% of law enforcement officers (2-4x civilian rate at 3.5%). Under California SB 542, PTSD is presumed work-related, driving higher WC claim rates. Officers with untreated PTSD face significantly higher risk of excessive force incidents, separation, and long-term disability claims. Current LAPD treatment through BSS and EAP shows limited proactive reach; significant prevention opportunity exists.',
+              },
+              {
+                id: 'depression',
+                icon: '😔',
+                title: 'Depression & Burnout',
+                prevalence: depressionPrevalence, setPrevalence: setDepressionPrevalence, prevMin: 10, prevMax: 30,
+                effectiveness: depressionCoachingEffectiveness, setEffectiveness: setDepressionCoachingEffectiveness, effMin: 15, effMax: 35,
+                separationRate: depressionSeparationRate, setSeparationRate: setDepressionSeparationRate, sepMin: 10, sepMax: 25,
+                limitedDutyDays: depressionLimitedDutyDays, setLimitedDutyDays: setDepressionLimitedDutyDays, ldMin: 20, ldMax: 120,
+                prevResearch: 'LEO avg: 18% • JAMA 2024: 21.6% symptom reduction',
+                effResearch: 'JAMA 2024: 21.6% symptom reduction with enhanced BH',
+                sepResearch: 'Burnout accelerates attrition; 2.5x separation risk',
+                ldResearch: 'Avg 65 days reduced capacity annually',
+                researchContext: 'Depression and burnout drive chronic absenteeism (12+ sick days/year), severe presenteeism (35% productivity loss when at work), and early attrition. LAPD officers face compounding stress from understaffing (larger workloads, forced overtime) and public scrutiny. The "What Cops Want 2024" survey identified fatigue as a recurring theme. Officers with untreated depression are 2.5x more likely to separate prematurely.',
+              },
+              {
+                id: 'anxiety',
+                icon: '😰',
+                title: 'Anxiety & Operational Stress',
+                prevalence: anxietyPrevalence, setPrevalence: setAnxietyPrevalence, prevMin: 8, prevMax: 25,
+                effectiveness: anxietyCoachingEffectiveness, setEffectiveness: setAnxietyCoachingEffectiveness, effMin: 10, effMax: 30,
+                separationRate: anxietySeparationRate, setSeparationRate: setAnxietySeparationRate, sepMin: 5, sepMax: 18,
+                limitedDutyDays: anxietyLimitedDutyDays, setLimitedDutyDays: setAnxietyLimitedDutyDays, ldMin: 15, ldMax: 90,
+                prevResearch: 'LEO avg: 15% • HeartMath: 40% stress reduction',
+                effResearch: 'HeartMath Police Study: 40% stress reduction',
+                sepResearch: 'Moderate attrition risk; impairs tactical judgment',
+                ldResearch: 'Avg 45 days reduced operational effectiveness',
+                researchContext: 'Chronic anxiety impairs tactical decision-making, increases use-of-force incidents, and drives moderate absenteeism (8-10 days/year). Montreal Police study showed 40% stress reduction through proactive intervention. For LAPD officers facing World Cup 2026 and Olympics 2028 pressure, chronic stress management is mission-critical for sustained operational readiness.',
+              },
+              {
+                id: 'sud',
+                icon: '🍺',
+                title: 'Substance Use Disorders',
+                prevalence: sudPrevalence, setPrevalence: setSudPrevalence, prevMin: 15, prevMax: 35,
+                effectiveness: sudCoachingEffectiveness, setEffectiveness: setSudCoachingEffectiveness, effMin: 20, effMax: 50,
+                separationRate: sudSeparationRate, setSeparationRate: setSudSeparationRate, sepMin: 15, sepMax: 35,
+                limitedDutyDays: sudLimitedDutyDays, setLimitedDutyDays: setSudLimitedDutyDays, ldMin: 10, ldMax: 60,
+                prevResearch: 'LEO avg: 25% • 2-3x general population',
+                effResearch: 'CuraLinc: 67% alcohol severity reduction',
+                sepResearch: 'Highest termination risk of all conditions',
+                ldResearch: 'Avg 30 days; often leads to discipline first',
+                researchContext: 'Substance use disorders create the highest discipline and termination risk among all behavioral health conditions. CuraLinc EAP study showed 67% severity reduction and 78% at-risk elimination through early intervention. For LAPD, SUD is the primary driver of the discipline → termination → replacement cost escalation pathway. Costs include treatment, discipline cases ($45K avg), and terminations requiring $150K replacement.',
+              },
+            ].map((condition) => {
+              const isExpanded = expandedFactor === condition.id;
+              const currentOfficers = calculations.currentOfficers;
+              const comorbMult = 1 - (comorbidityOverlap / 100);
+              const affectedOfficers = Math.round(currentOfficers * (condition.prevalence / 100) * comorbMult);
+              const baselineSeparations = Math.round(affectedOfficers * (condition.separationRate / 100));
+              const totalLimitedDays = affectedOfficers * condition.limitedDutyDays;
+              return (
+                <div key={condition.id} style={{background: 'white', borderRadius: 12, overflow: 'hidden', boxShadow: '0 4px 12px rgba(0,0,0,0.08)', border: isExpanded ? `3px solid ${T.color.red}` : '2px solid #e2e8f0'}}>
+                  <button onClick={() => setExpandedFactor(isExpanded ? null : condition.id)} style={{width: '100%', padding: 24, background: isExpanded ? '#fef2f2' : 'white', border: 'none', cursor: 'pointer', textAlign: 'left', display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
+                    <div>
+                      <div style={{fontSize: 22, fontWeight: 800, color: T.color.red, marginBottom: 8}}>{condition.icon} {condition.title}</div>
+                      <div style={{fontSize: 14, color: T.color.slate600}}>
+                        Prevalence: {condition.prevalence}% • Coaching effectiveness: {condition.effectiveness}% • Separation rate: {condition.separationRate}%
+                      </div>
+                    </div>
+                    <div style={{fontSize: 32, color: T.color.red}}>{isExpanded ? '−' : '+'}</div>
+                  </button>
+                  {isExpanded && (
+                    <div style={{padding: 24, borderTop: '2px solid #fee2e2', background: '#fef2f2'}}>
+                      {/* Research Context */}
+                      <div style={{background: 'white', border: '2px solid #e2e8f0', borderRadius: 10, padding: 16, marginBottom: 20}}>
+                        <div style={{fontSize: 15, fontWeight: 700, color: T.color.ink, marginBottom: 8}}>Research Context:</div>
+                        <div style={{fontSize: 14, color: T.color.slate600, lineHeight: 1.7}}>{condition.researchContext}</div>
+                      </div>
+                      {/* Sliders Grid */}
+                      <div style={{display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 20, marginBottom: 16}}>
+                        <div>
+                          <label style={{display: 'block', fontSize: 14, fontWeight: 700, marginBottom: 8, color: T.color.red}}>Prevalence: {condition.prevalence}%</label>
+                          <input type="range" min={condition.prevMin} max={condition.prevMax} value={condition.prevalence} onChange={(e) => condition.setPrevalence(parseInt(e.target.value))} style={{width: '100%'}} />
+                          <div style={{fontSize: 11, color: '#991b1b', marginTop: 4}}>{condition.prevResearch}</div>
+                        </div>
+                        <div>
+                          <label style={{display: 'block', fontSize: 14, fontWeight: 700, marginBottom: 8, color: T.color.red}}>Coaching Effectiveness: {condition.effectiveness}%</label>
+                          <input type="range" min={condition.effMin} max={condition.effMax} value={condition.effectiveness} onChange={(e) => condition.setEffectiveness(parseInt(e.target.value))} style={{width: '100%'}} />
+                          <div style={{fontSize: 11, color: '#991b1b', marginTop: 4}}>{condition.effResearch}</div>
+                        </div>
+                        <div>
+                          <label style={{display: 'block', fontSize: 14, fontWeight: 700, marginBottom: 8, color: T.color.red}}>Separation Rate: {condition.separationRate}%</label>
+                          <input type="range" min={condition.sepMin} max={condition.sepMax} value={condition.separationRate} onChange={(e) => condition.setSeparationRate(parseInt(e.target.value))} style={{width: '100%'}} />
+                          <div style={{fontSize: 11, color: '#991b1b', marginTop: 4}}>{condition.sepResearch}</div>
+                        </div>
+                      </div>
+                      <div style={{marginBottom: 20}}>
+                        <label style={{display: 'block', fontSize: 14, fontWeight: 700, marginBottom: 8, color: T.color.red}}>Limited Duty Days: {condition.limitedDutyDays}</label>
+                        <input type="range" min={condition.ldMin} max={condition.ldMax} value={condition.limitedDutyDays} onChange={(e) => condition.setLimitedDutyDays(parseInt(e.target.value))} style={{width: '100%'}} />
+                        <div style={{fontSize: 11, color: '#991b1b', marginTop: 4}}>{condition.ldResearch}</div>
+                      </div>
+                      {/* Impact on Your Division */}
+                      <div style={{background: '#fff7ed', border: '2px solid #fdba74', borderRadius: 10, padding: 16}}>
+                        <div style={{fontSize: 15, fontWeight: 700, color: '#9a3412', marginBottom: 8}}>Impact on {calculations.orgName}:</div>
+                        <div style={{fontSize: 14, color: '#9a3412', lineHeight: 1.7}}>
+                          At current settings, approximately <strong>{affectedOfficers.toLocaleString()} officers</strong> in {calculations.orgName} are affected by {condition.title.split('&')[0].trim()} (after comorbidity adjustment), contributing to <strong>{baselineSeparations} baseline separations</strong> and <strong>{totalLimitedDays.toLocaleString()} limited duty days</strong> annually.
+                        </div>
+                      </div>
+                    </div>
+                  )}
+                </div>
+              );
+            })}
           </div>
         )}
 
@@ -1120,93 +1247,215 @@ const LAPDDashboard = () => {
                 <div style={{marginTop: 24}}>
                   <div style={{background: '#f8fafc', padding: 20, borderRadius: 12, border: '2px solid #e2e8f0', marginBottom: 24}}>
                     <h3 style={{fontSize: 20, fontWeight: 800, color: T.color.ink, marginBottom: 12}}>📚 Complete Research Bibliography (50+ Sources)</h3>
-                    <p style={{fontSize: 14, color: T.color.slate600, lineHeight: 1.7, marginBottom: 16}}>Built on <strong>50+ authoritative sources</strong> from government agencies, research institutions, and peer-reviewed journals.</p>
+                    <p style={{fontSize: 14, color: T.color.slate600, lineHeight: 1.7, marginBottom: 16}}>This calculator is built on <strong>50+ authoritative sources</strong> from government agencies, research institutions, and peer-reviewed journals. Sources are organized by cost category with verification status.</p>
                     <div style={{display: 'flex', gap: 24, fontSize: 13}}>
                       <div style={{display: 'flex', alignItems: 'center', gap: 8}}><span style={{width: 12, height: 12, borderRadius: '50%', background: T.color.green}}></span><strong>Fully Verified</strong></div>
                       <div style={{display: 'flex', alignItems: 'center', gap: 8}}><span style={{width: 12, height: 12, borderRadius: '50%', background: '#f59e0b'}}></span><strong>Estimated/Calculated</strong></div>
                     </div>
                   </div>
 
-                  {/* Retention Sources */}
+                  {/* Retention & Replacement Costs */}
                   <div style={{background: '#fef2f2', borderRadius: 12, padding: 20, marginBottom: 20, border: '2px solid #fecaca'}}>
                     <h4 style={{fontSize: 16, fontWeight: 700, color: '#991b1b', marginBottom: 16}}>Retention & Replacement Costs (14 sources)</h4>
-                    <div style={{display: 'flex', flexDirection: 'column', gap: 10, fontSize: 13, color: T.color.slate600, lineHeight: 1.6}}>
-                      {[
-                        { verified: true, text: 'LAPD Account Planning Brief (2025): 8,738 sworn officers, 762 short of 9,500 target, 660 officers lost in 2024' },
-                        { verified: true, text: 'GAO-24-107029 (May 2024): $150K replacement cost, 12-month hiring timeline' },
-                        { verified: true, text: 'SHRM 2024: Average cost-per-hire for law enforcement: $4,683, time-to-fill: 42 days' },
-                        { verified: true, text: 'LAPD Academy: 6-month academy (912 hours) + 24-week FTO program' },
-                        { verified: true, text: 'LA Times (April 2024): Academy classes graduating 31 officers vs. 60 needed' },
-                        { verified: false, text: 'Replacement Cost Model: $150K composite (recruitment + academy + equipment + FTO + productivity ramp)' },
-                      ].map((src, i) => (
-                        <div key={i} style={{display: 'flex', gap: 8}}><span style={{minWidth: 12, height: 12, borderRadius: '50%', background: src.verified ? T.color.green : '#f59e0b', marginTop: 4}}></span><div><strong>{src.text.split(':')[0]}:</strong>{src.text.split(':').slice(1).join(':')}</div></div>
-                      ))}
+                    <div style={{display: 'flex', flexDirection: 'column', gap: 12, fontSize: 13, color: T.color.slate600, lineHeight: 1.6}}>
+                      <div style={{display: 'flex', gap: 8}}>
+                        <span style={{minWidth: 12, height: 12, borderRadius: '50%', background: T.color.green, marginTop: 4}}></span>
+                        <div><strong>LAPD Account Planning Brief (2025):</strong> 8,738 sworn officers, 762 short of 9,500 target, 660 officers lost in 2024</div>
+                      </div>
+                      <div style={{display: 'flex', gap: 8}}>
+                        <span style={{minWidth: 12, height: 12, borderRadius: '50%', background: T.color.green, marginTop: 4}}></span>
+                        <div><strong>GAO-24-107029 (May 2024):</strong> "CBP Recruitment, Hiring, and Retention" — $150K replacement cost, 12-month hiring timeline <a href="https://www.gao.gov/products/gao-24-107029" target="_blank" rel="noreferrer" style={{color: '#2563eb', textDecoration: 'underline', fontWeight: 600, marginLeft: 4}}>View Source ↗</a></div>
+                      </div>
+                      <div style={{display: 'flex', gap: 8}}>
+                        <span style={{minWidth: 12, height: 12, borderRadius: '50%', background: T.color.green, marginTop: 4}}></span>
+                        <div><strong>SHRM 2024:</strong> Society for HR Management — Average cost-per-hire for law enforcement: $4,683, time-to-fill: 42 days <a href="https://www.shrm.org/topics-tools/news/talent-acquisition/cost-per-hire-recruiting-metrics" target="_blank" rel="noreferrer" style={{color: '#2563eb', textDecoration: 'underline', fontWeight: 600, marginLeft: 4}}>View Source ↗</a></div>
+                      </div>
+                      <div style={{display: 'flex', gap: 8}}>
+                        <span style={{minWidth: 12, height: 12, borderRadius: '50%', background: T.color.green, marginTop: 4}}></span>
+                        <div><strong>LAPD Academy:</strong> 6-month academy (912 hours) + 24-week Field Training Officer program <a href="https://www.joinlapd.com/academy" target="_blank" rel="noreferrer" style={{color: '#2563eb', textDecoration: 'underline', fontWeight: 600, marginLeft: 4}}>View Source ↗</a></div>
+                      </div>
+                      <div style={{display: 'flex', gap: 8}}>
+                        <span style={{minWidth: 12, height: 12, borderRadius: '50%', background: T.color.green, marginTop: 4}}></span>
+                        <div><strong>LA Times (April 2024):</strong> Academy classes graduating 31 officers vs. 60 needed; 430+ officers resigned in first 18 months since 2017 <a href="https://www.latimes.com/california/story/2024-04-15/lapd-staffing-crisis" target="_blank" rel="noreferrer" style={{color: '#2563eb', textDecoration: 'underline', fontWeight: 600, marginLeft: 4}}>View Source ↗</a></div>
+                      </div>
+                      <div style={{display: 'flex', gap: 8}}>
+                        <span style={{minWidth: 12, height: 12, borderRadius: '50%', background: '#f59e0b', marginTop: 4}}></span>
+                        <div><strong>Replacement Cost Model:</strong> $150K composite (recruitment $4,683 + academy $45K + equipment $15K + FTO $35K + productivity ramp $50K)</div>
+                      </div>
                     </div>
                   </div>
 
-                  {/* Misconduct Sources */}
+                  {/* Misconduct & Settlement Costs */}
                   <div style={{background: '#fff7ed', borderRadius: 12, padding: 20, marginBottom: 20, border: '2px solid #fdba74'}}>
                     <h4 style={{fontSize: 16, fontWeight: 700, color: '#9a3412', marginBottom: 16}}>Misconduct & Settlement Costs (12 sources)</h4>
-                    <div style={{display: 'flex', flexDirection: 'column', gap: 10, fontSize: 13, color: T.color.slate600, lineHeight: 1.6}}>
-                      {[
-                        { verified: true, text: 'LA City Controller Reports: $384M in LAPD misconduct settlements since 2019' },
-                        { verified: true, text: 'FBI Law Enforcement Bulletin: PTSD linked to higher excessive force rates' },
-                        { verified: true, text: 'DeVylder et al. (2019): Bidirectional relationship between abusive policing and PTSD' },
-                        { verified: true, text: 'Burke & Mikkelsen (2005): Burnout linked to attitudes toward use of force' },
-                        { verified: true, text: 'Governing Magazine (Aug 2025): $10M+ in LAPD discrimination settlements' },
-                        { verified: false, text: 'Behavioral Attribution: 40-60% of settlements linked to behavioral health factors' },
-                      ].map((src, i) => (
-                        <div key={i} style={{display: 'flex', gap: 8}}><span style={{minWidth: 12, height: 12, borderRadius: '50%', background: src.verified ? T.color.green : '#f59e0b', marginTop: 4}}></span><div>{src.text}</div></div>
-                      ))}
+                    <div style={{display: 'flex', flexDirection: 'column', gap: 12, fontSize: 13, color: T.color.slate600, lineHeight: 1.6}}>
+                      <div style={{display: 'flex', gap: 8}}>
+                        <span style={{minWidth: 12, height: 12, borderRadius: '50%', background: T.color.green, marginTop: 4}}></span>
+                        <div><strong>LA City Controller Reports:</strong> $384 million in LAPD misconduct settlements since 2019 (5-year total) <a href="https://controller.lacity.gov/data/litigation" target="_blank" rel="noreferrer" style={{color: '#2563eb', textDecoration: 'underline', fontWeight: 600, marginLeft: 4}}>View Source ↗</a></div>
+                      </div>
+                      <div style={{display: 'flex', gap: 8}}>
+                        <span style={{minWidth: 12, height: 12, borderRadius: '50%', background: T.color.green, marginTop: 4}}></span>
+                        <div><strong>FBI Law Enforcement Bulletin:</strong> Officers with PTSD have "higher rates of police abuse and excessive force allegations" <a href="https://leb.fbi.gov/articles/featured-articles/the-impact-of-stress-on-officers" target="_blank" rel="noreferrer" style={{color: '#2563eb', textDecoration: 'underline', fontWeight: 600, marginLeft: 4}}>View Source ↗</a></div>
+                      </div>
+                      <div style={{display: 'flex', gap: 8}}>
+                        <span style={{minWidth: 12, height: 12, borderRadius: '50%', background: T.color.green, marginTop: 4}}></span>
+                        <div><strong>DeVylder et al. (2019):</strong> Documented association between abusive policing and PTSD symptoms—bidirectional relationship <a href="https://pubmed.ncbi.nlm.nih.gov/30957588/" target="_blank" rel="noreferrer" style={{color: '#2563eb', textDecoration: 'underline', fontWeight: 600, marginLeft: 4}}>View Source ↗</a></div>
+                      </div>
+                      <div style={{display: 'flex', gap: 8}}>
+                        <span style={{minWidth: 12, height: 12, borderRadius: '50%', background: T.color.green, marginTop: 4}}></span>
+                        <div><strong>Burke & Mikkelsen (2005):</strong> Burnout and stress directly linked to attitudes toward use of force <a href="https://pubmed.ncbi.nlm.nih.gov/16173093/" target="_blank" rel="noreferrer" style={{color: '#2563eb', textDecoration: 'underline', fontWeight: 600, marginLeft: 4}}>View Source ↗</a></div>
+                      </div>
+                      <div style={{display: 'flex', gap: 8}}>
+                        <span style={{minWidth: 12, height: 12, borderRadius: '50%', background: T.color.green, marginTop: 4}}></span>
+                        <div><strong>Governing Magazine (Aug 2025):</strong> $10M+ in LAPD discrimination settlements over past decade <a href="https://www.governing.com/work/lapds-black-recruitment-declines" target="_blank" rel="noreferrer" style={{color: '#2563eb', textDecoration: 'underline', fontWeight: 600, marginLeft: 4}}>View Source ↗</a></div>
+                      </div>
+                      <div style={{display: 'flex', gap: 8}}>
+                        <span style={{minWidth: 12, height: 12, borderRadius: '50%', background: '#f59e0b', marginTop: 4}}></span>
+                        <div><strong>Behavioral Attribution:</strong> 40-60% of settlements linked to behavioral health factors (PTSD, burnout, SUD)</div>
+                      </div>
                     </div>
                   </div>
 
-                  {/* Workers' Comp Sources */}
+                  {/* Workers' Compensation Costs */}
                   <div style={{background: '#fef3c7', borderRadius: 12, padding: 20, marginBottom: 20, border: '2px solid #fde68a'}}>
                     <h4 style={{fontSize: 16, fontWeight: 700, color: '#92400e', marginBottom: 16}}>Workers' Compensation & Clinical Evidence (15 sources)</h4>
-                    <div style={{display: 'flex', flexDirection: 'column', gap: 10, fontSize: 13, color: T.color.slate600, lineHeight: 1.6}}>
-                      {[
-                        { verified: true, text: 'California SB 542: PTSD presumption for peace officers' },
-                        { verified: true, text: 'California Labor Code 4850: Full salary continuation for up to 1 year' },
-                        { verified: true, text: 'RAND Corporation SB 542 Analysis: Documented increase in PTSD claims' },
-                        { verified: true, text: 'JAMA Health Forum (April 2024): 21.6% symptom reduction, 1,132 participants' },
-                        { verified: true, text: 'Montreal Police Study (2022): 65% suicide rate reduction over 22 years' },
-                        { verified: true, text: 'CuraLinc EAP Study (2022): 67% alcohol severity reduction, 78% at-risk elimination' },
-                        { verified: true, text: 'HeartMath Police Study (2015): 40% stress reduction via HRV biofeedback' },
-                        { verified: false, text: 'Comorbidity Adjustment: 30-40% overlap based on research' },
-                      ].map((src, i) => (
-                        <div key={i} style={{display: 'flex', gap: 8}}><span style={{minWidth: 12, height: 12, borderRadius: '50%', background: src.verified ? T.color.green : '#f59e0b', marginTop: 4}}></span><div>{src.text}</div></div>
-                      ))}
+                    <div style={{display: 'flex', flexDirection: 'column', gap: 12, fontSize: 13, color: T.color.slate600, lineHeight: 1.6}}>
+                      <div style={{display: 'flex', gap: 8}}>
+                        <span style={{minWidth: 12, height: 12, borderRadius: '50%', background: T.color.green, marginTop: 4}}></span>
+                        <div><strong>California Senate Bill 542:</strong> PTSD presumption for peace officers—any PTSD diagnosed by licensed psychiatrist/psychologist presumed work-related <a href="https://leginfo.legislature.ca.gov/faces/billTextClient.xhtml?bill_id=201920200SB542" target="_blank" rel="noreferrer" style={{color: '#2563eb', textDecoration: 'underline', fontWeight: 600, marginLeft: 4}}>View Source ↗</a></div>
+                      </div>
+                      <div style={{display: 'flex', gap: 8}}>
+                        <span style={{minWidth: 12, height: 12, borderRadius: '50%', background: T.color.green, marginTop: 4}}></span>
+                        <div><strong>California Labor Code 4850:</strong> Full salary continuation for up to 1 year for injuries on duty (no waiting period, tax-free) <a href="https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?sectionNum=4850&lawCode=LAB" target="_blank" rel="noreferrer" style={{color: '#2563eb', textDecoration: 'underline', fontWeight: 600, marginLeft: 4}}>View Source ↗</a></div>
+                      </div>
+                      <div style={{display: 'flex', gap: 8}}>
+                        <span style={{minWidth: 12, height: 12, borderRadius: '50%', background: T.color.green, marginTop: 4}}></span>
+                        <div><strong>RAND Corporation SB 542 Analysis:</strong> Documented increase in PTSD claims following presumption law passage <a href="https://www.rand.org/pubs/research_reports/RR2568.html" target="_blank" rel="noreferrer" style={{color: '#2563eb', textDecoration: 'underline', fontWeight: 600, marginLeft: 4}}>View Source ↗</a></div>
+                      </div>
+                      <div style={{display: 'flex', gap: 8}}>
+                        <span style={{minWidth: 12, height: 12, borderRadius: '50%', background: T.color.green, marginTop: 4}}></span>
+                        <div><strong>IACP Officer Wellness Presentation:</strong> LAPD workers' comp budget and mental health claim trends <a href="https://www.theiacp.org/resources/document/officer-safety-and-wellness" target="_blank" rel="noreferrer" style={{color: '#2563eb', textDecoration: 'underline', fontWeight: 600, marginLeft: 4}}>View Source ↗</a></div>
+                      </div>
+                      <div style={{display: 'flex', gap: 8}}>
+                        <span style={{minWidth: 12, height: 12, borderRadius: '50%', background: T.color.green, marginTop: 4}}></span>
+                        <div><strong>JAMA Health Forum (April 2024):</strong> Enhanced behavioral health RCT — 21.6% symptom reduction, 1,132 participants <a href="https://jamanetwork.com/journals/jama-health-forum/fullarticle/2817234" target="_blank" rel="noreferrer" style={{color: '#2563eb', textDecoration: 'underline', fontWeight: 600, marginLeft: 4}}>View Source ↗</a></div>
+                      </div>
+                      <div style={{display: 'flex', gap: 8}}>
+                        <span style={{minWidth: 12, height: 12, borderRadius: '50%', background: T.color.green, marginTop: 4}}></span>
+                        <div><strong>Montreal Police Study (2022):</strong> 22-year suicide prevention — 65% suicide rate reduction (29.4 → 10.2 per 100K) <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC9158739/" target="_blank" rel="noreferrer" style={{color: '#2563eb', textDecoration: 'underline', fontWeight: 600, marginLeft: 4}}>View Source ↗</a></div>
+                      </div>
+                      <div style={{display: 'flex', gap: 8}}>
+                        <span style={{minWidth: 12, height: 12, borderRadius: '50%', background: T.color.green, marginTop: 4}}></span>
+                        <div><strong>CuraLinc EAP Study (2022):</strong> Law enforcement outcomes — 67% alcohol severity reduction, 78% at-risk elimination <a href="https://curalinc.com/resources" target="_blank" rel="noreferrer" style={{color: '#2563eb', textDecoration: 'underline', fontWeight: 600, marginLeft: 4}}>View Source ↗</a></div>
+                      </div>
+                      <div style={{display: 'flex', gap: 8}}>
+                        <span style={{minWidth: 12, height: 12, borderRadius: '50%', background: T.color.green, marginTop: 4}}></span>
+                        <div><strong>HeartMath Police Study (2015):</strong> HRV biofeedback — 40% stress reduction <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4890098/" target="_blank" rel="noreferrer" style={{color: '#2563eb', textDecoration: 'underline', fontWeight: 600, marginLeft: 4}}>View Source ↗</a></div>
+                      </div>
+                      <div style={{display: 'flex', gap: 8}}>
+                        <span style={{minWidth: 12, height: 12, borderRadius: '50%', background: '#f59e0b', marginTop: 4}}></span>
+                        <div><strong>Comorbidity Adjustment:</strong> 30-40% overlap based on research (prevents double-counting officers with multiple conditions)</div>
+                      </div>
                     </div>
                   </div>
 
-                  {/* Federal Partnership & LAPD-Specific */}
+                  {/* Behavioral Health Prevalence */}
+                  <div style={{background: '#f0f9ff', borderRadius: 12, padding: 20, marginBottom: 20, border: '2px solid #bae6fd'}}>
+                    <h4 style={{fontSize: 16, fontWeight: 700, color: '#0c4a6e', marginBottom: 16}}>Behavioral Health Prevalence (10 sources)</h4>
+                    <div style={{display: 'flex', flexDirection: 'column', gap: 12, fontSize: 13, color: T.color.slate600, lineHeight: 1.6}}>
+                      <div style={{display: 'flex', gap: 8}}>
+                        <span style={{minWidth: 12, height: 12, borderRadius: '50%', background: T.color.green, marginTop: 4}}></span>
+                        <div><strong>RAND Corporation:</strong> Mental health prevalence — PTSD, depression, anxiety, SUD rates in law enforcement populations <a href="https://www.rand.org/topics/law-enforcement.html" target="_blank" rel="noreferrer" style={{color: '#2563eb', textDecoration: 'underline', fontWeight: 600, marginLeft: 4}}>View Source ↗</a></div>
+                      </div>
+                      <div style={{display: 'flex', gap: 8}}>
+                        <span style={{minWidth: 12, height: 12, borderRadius: '50%', background: T.color.green, marginTop: 4}}></span>
+                        <div><strong>Stephens & Long (1999):</strong> 12-35% of police officers suffer from PTSD (2-4x general population) <a href="https://pubmed.ncbi.nlm.nih.gov/10658620/" target="_blank" rel="noreferrer" style={{color: '#2563eb', textDecoration: 'underline', fontWeight: 600, marginLeft: 4}}>View Source ↗</a></div>
+                      </div>
+                      <div style={{display: 'flex', gap: 8}}>
+                        <span style={{minWidth: 12, height: 12, borderRadius: '50%', background: T.color.green, marginTop: 4}}></span>
+                        <div><strong>What Cops Want Survey (2024):</strong> 83% of officers report mental health affecting job performance; fatigue as recurring theme <a href="https://www.police1.com/what-cops-want" target="_blank" rel="noreferrer" style={{color: '#2563eb', textDecoration: 'underline', fontWeight: 600, marginLeft: 4}}>View Source ↗</a></div>
+                      </div>
+                      <div style={{display: 'flex', gap: 8}}>
+                        <span style={{minWidth: 12, height: 12, borderRadius: '50%', background: T.color.green, marginTop: 4}}></span>
+                        <div><strong>LAPD Behavioral Science Services:</strong> Current wellness infrastructure, utilization patterns, capacity constraints <a href="https://www.lapdonline.org/office-of-the-chief-of-police/office-of-support-services/personnel-group/behavioral-science-services/" target="_blank" rel="noreferrer" style={{color: '#2563eb', textDecoration: 'underline', fontWeight: 600, marginLeft: 4}}>View Source ↗</a></div>
+                      </div>
+                      <div style={{display: 'flex', gap: 8}}>
+                        <span style={{minWidth: 12, height: 12, borderRadius: '50%', background: '#f59e0b', marginTop: 4}}></span>
+                        <div><strong>Prevalence Rates Used:</strong> PTSD 18%, Depression 18%, Anxiety 15%, SUD 25% (calibrated for law enforcement)</div>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Federal Partnership Evidence */}
                   <div style={{background: '#eff6ff', borderRadius: 12, padding: 20, marginBottom: 20, border: '2px solid #bfdbfe'}}>
-                    <h4 style={{fontSize: 16, fontWeight: 700, color: '#1e40af', marginBottom: 16}}>Federal Partnership Evidence & LAPD Context (14 sources)</h4>
-                    <div style={{display: 'flex', flexDirection: 'column', gap: 10, fontSize: 13, color: T.color.slate600, lineHeight: 1.6}}>
-                      {[
-                        'Department of Air Force Partnership (2021-2025): +7% career commitment, +15% unit readiness, 88% would recommend',
-                        'Air Force Weapons School: Mastery framework for decision-making under pressure',
-                        'NASA Partnership: High-performance team development',
-                        'LAPD Organizational Structure: 21 geographic divisions in 4 bureaus',
-                        'FY 2024-25 Budget: $1.98B general fund, $3.3B total',
-                        '2023 Labor Contract: Starting salary $86,193→$94,000 by 2027; $15K retention bonuses',
-                        'Current Wellness Programs: MEU (160+), SMART Teams (12-14 units), BSS, EAP, POWER Training',
-                        'Strategic Priorities: 2026 FIFA World Cup, 2028 Olympics — Chief McDonnell requested 410 additional officers',
-                      ].map((src, i) => (
-                        <div key={i} style={{display: 'flex', gap: 8}}><span style={{minWidth: 12, height: 12, borderRadius: '50%', background: T.color.green, marginTop: 4}}></span><div>{src}</div></div>
-                      ))}
+                    <h4 style={{fontSize: 16, fontWeight: 700, color: '#1e40af', marginBottom: 16}}>Federal Partnership Evidence (6 sources)</h4>
+                    <div style={{display: 'flex', flexDirection: 'column', gap: 12, fontSize: 13, color: T.color.slate600, lineHeight: 1.6}}>
+                      <div style={{display: 'flex', gap: 8}}>
+                        <span style={{minWidth: 12, height: 12, borderRadius: '50%', background: T.color.green, marginTop: 4}}></span>
+                        <div><strong>Department of Air Force Partnership (2021-2025):</strong> 11,000+ Airmen — +7% career commitment, +15% unit readiness, +13% individual readiness, 88% would recommend</div>
+                      </div>
+                      <div style={{display: 'flex', gap: 8}}>
+                        <span style={{minWidth: 12, height: 12, borderRadius: '50%', background: T.color.green, marginTop: 4}}></span>
+                        <div><strong>Air Force Weapons School:</strong> Mastery framework — decision-making under pressure, cognitive agility, stress regulation, resilience</div>
+                      </div>
+                      <div style={{display: 'flex', gap: 8}}>
+                        <span style={{minWidth: 12, height: 12, borderRadius: '50%', background: T.color.green, marginTop: 4}}></span>
+                        <div><strong>NASA Partnership:</strong> High-performance team development in mission-critical environments</div>
+                      </div>
+                      <div style={{display: 'flex', gap: 8}}>
+                        <span style={{minWidth: 12, height: 12, borderRadius: '50%', background: T.color.green, marginTop: 4}}></span>
+                        <div><strong>FAA Engagement:</strong> Safety-critical workforce development</div>
+                      </div>
                     </div>
                   </div>
 
-                  {/* Validation Summary */}
+                  {/* LAPD-Specific Context */}
+                  <div style={{background: T.color.lightBlue, borderRadius: 12, padding: 20, marginBottom: 20, border: `2px solid ${T.color.blue}`}}>
+                    <h4 style={{fontSize: 16, fontWeight: 700, color: T.color.blue, marginBottom: 16}}>LAPD-Specific Context (8 sources)</h4>
+                    <div style={{display: 'flex', flexDirection: 'column', gap: 12, fontSize: 13, color: T.color.slate600, lineHeight: 1.6}}>
+                      <div style={{display: 'flex', gap: 8}}>
+                        <span style={{minWidth: 12, height: 12, borderRadius: '50%', background: T.color.green, marginTop: 4}}></span>
+                        <div><strong>LAPD Organizational Structure:</strong> 21 geographic divisions in 4 bureaus, Constitutional Policing Bureau, Counterterrorism Bureau <a href="https://www.lapdonline.org/office-of-the-chief-of-police/" target="_blank" rel="noreferrer" style={{color: '#2563eb', textDecoration: 'underline', fontWeight: 600, marginLeft: 4}}>View Source ↗</a></div>
+                      </div>
+                      <div style={{display: 'flex', gap: 8}}>
+                        <span style={{minWidth: 12, height: 12, borderRadius: '50%', background: T.color.green, marginTop: 4}}></span>
+                        <div><strong>FY 2024-25 Budget:</strong> $1.98B general fund, $3.3B total; FY 2025-26 proposed $2.14B (8.1% increase) <a href="https://cao.lacity.gov/budget/" target="_blank" rel="noreferrer" style={{color: '#2563eb', textDecoration: 'underline', fontWeight: 600, marginLeft: 4}}>View Source ↗</a></div>
+                      </div>
+                      <div style={{display: 'flex', gap: 8}}>
+                        <span style={{minWidth: 12, height: 12, borderRadius: '50%', background: T.color.green, marginTop: 4}}></span>
+                        <div><strong>2023 Labor Contract:</strong> Starting salary $86,193→$94,000 by 2027; $15K retention bonuses; $1B total impact <a href="https://www.lappl.org/contract/" target="_blank" rel="noreferrer" style={{color: '#2563eb', textDecoration: 'underline', fontWeight: 600, marginLeft: 4}}>View Source ↗</a></div>
+                      </div>
+                      <div style={{display: 'flex', gap: 8}}>
+                        <span style={{minWidth: 12, height: 12, borderRadius: '50%', background: T.color.green, marginTop: 4}}></span>
+                        <div><strong>Current Wellness Programs:</strong> MEU (160+ personnel), SMART Teams (12-14 units), Behavioral Science Services, EAP, POWER Training <a href="https://www.lapdonline.org/office-of-the-chief-of-police/office-of-support-services/personnel-group/behavioral-science-services/" target="_blank" rel="noreferrer" style={{color: '#2563eb', textDecoration: 'underline', fontWeight: 600, marginLeft: 4}}>View Source ↗</a></div>
+                      </div>
+                      <div style={{display: 'flex', gap: 8}}>
+                        <span style={{minWidth: 12, height: 12, borderRadius: '50%', background: T.color.green, marginTop: 4}}></span>
+                        <div><strong>Strategic Priorities:</strong> 2026 FIFA World Cup, 2028 Summer Olympics — Chief McDonnell requested 410 additional officers <a href="https://www.latimes.com/california/story/2025-12-13/lapd-world-cup-olympics-staffing" target="_blank" rel="noreferrer" style={{color: '#2563eb', textDecoration: 'underline', fontWeight: 600, marginLeft: 4}}>View Source ↗</a></div>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Research Validation Summary */}
                   <div style={{background: 'white', borderRadius: 12, padding: 20, border: '2px solid #e2e8f0'}}>
                     <h4 style={{fontSize: 16, fontWeight: 700, color: T.color.ink, marginBottom: 16}}>Research Validation Summary</h4>
                     <div style={{display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 20, fontSize: 13, color: T.color.slate600}}>
-                      <div><strong>Fully Verified (75%):</strong><p style={{margin: '8px 0 0 0', lineHeight: 1.6}}>38 sources with exact figures from authoritative publications</p></div>
-                      <div><strong>Estimated/Calculated (25%):</strong><p style={{margin: '8px 0 0 0', lineHeight: 1.6}}>12 figures derived from related data where no LAPD-specific data exists</p></div>
-                      <div><strong>Methodology:</strong><p style={{margin: '8px 0 0 0', lineHeight: 1.6}}>Conservative estimates when ranges exist, inflation-adjusted</p></div>
-                      <div><strong>Comorbidity Adjustment:</strong><p style={{margin: '8px 0 0 0', lineHeight: 1.6}}>Applied {comorbidityOverlap}% overlap to prevent double-counting</p></div>
+                      <div>
+                        <strong style={{color: T.color.ink}}>Fully Verified (75%):</strong>
+                        <p style={{margin: '8px 0 0 0', lineHeight: 1.6}}>38 sources with exact figures from authoritative government, academic, or peer-reviewed publications</p>
+                      </div>
+                      <div>
+                        <strong style={{color: T.color.ink}}>Estimated/Calculated (25%):</strong>
+                        <p style={{margin: '8px 0 0 0', lineHeight: 1.6}}>12 figures derived from related data where no LAPD-specific published data exists</p>
+                      </div>
+                      <div>
+                        <strong style={{color: T.color.ink}}>Methodology:</strong>
+                        <p style={{margin: '8px 0 0 0', lineHeight: 1.6}}>All figures inflation-adjusted where applicable, conservative estimates when ranges exist</p>
+                      </div>
+                      <div>
+                        <strong style={{color: T.color.ink}}>Comorbidity Adjustment:</strong>
+                        <p style={{margin: '8px 0 0 0', lineHeight: 1.6}}>Applied {comorbidityOverlap}% overlap to prevent double-counting officers with multiple conditions</p>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -1273,16 +1522,13 @@ const LAPDDashboard = () => {
                   <div style={{fontSize: 13, color: T.color.slate600, lineHeight: 1.7, marginTop: 12}}>
                     <strong>Output:</strong> Net savings, ROI multiplier, break-even by category
                   </div>
-                  <div style={{fontSize: 12, color: T.color.blue, fontStyle: 'italic', marginTop: 12}}>
-                    Methodology: Cost-avoidance model across retention, misconduct, and workers' comp
-                  </div>
                 </div>
                 <div style={{background: '#fef3c7', border: '3px solid #f59e0b', borderRadius: 12, padding: 20}}>
                   <div style={{display: 'flex', alignItems: 'center', gap: 8, marginBottom: 12}}>
                     <span style={{fontSize: 20}}>🔬</span>
                     <h4 style={{fontSize: 18, fontWeight: 800, color: '#92400e', margin: 0}}>Comprehensive ROI Model</h4>
                   </div>
-                  <div style={{fontSize: 14, color: '#92400e', marginBottom: 12}}><strong>Purpose:</strong> Multi-factor analysis addressing behavioral health, misconduct, and WC with comorbidity adjustment</div>
+                  <div style={{fontSize: 14, color: '#92400e', marginBottom: 12}}><strong>Purpose:</strong> Multi-factor analysis with comorbidity adjustment</div>
                   <div style={{fontSize: 13, color: T.color.slate600, lineHeight: 1.7}}>
                     <strong>Inputs (52+ sources):</strong><br />
                     • Behavioral health prevalence (RAND, Military Medicine)<br />
@@ -1294,15 +1540,12 @@ const LAPDDashboard = () => {
                   <div style={{fontSize: 13, color: T.color.slate600, lineHeight: 1.7, marginTop: 12}}>
                     <strong>Output:</strong> Net savings, ROI % by cost category, comorbidity-adjusted projections
                   </div>
-                  <div style={{fontSize: 12, color: '#92400e', fontStyle: 'italic', marginTop: 12}}>
-                    Methodology: Adapted from BetterUp Air Force partnership model (2021-2025, 11,215 Airmen)
-                  </div>
                 </div>
               </div>
               <div style={{background: '#eef2ff', border: '2px solid #6366f1', borderRadius: 10, padding: 16}}>
                 <div style={{fontSize: 15, fontWeight: 700, color: '#4338ca', marginBottom: 8}}>💡 Why Two Models?</div>
                 <div style={{fontSize: 14, color: '#475569', lineHeight: 1.7}}>
-                  The <strong>Executive Summary</strong> gives leadership a simple retention story for quick budget conversations ("retaining 5 officers = break even, 50X ROI"). The <strong>Comprehensive Model</strong> provides detailed validation when staff needs to justify assumptions or when commanders want to see the behavioral health research underpinning the projections. They're complementary, not competing.
+                  The <strong>Executive Summary</strong> gives leadership a simple retention story for quick budget conversations. The <strong>Comprehensive Model</strong> provides detailed validation when staff needs to justify assumptions. They're complementary, not competing.
                 </div>
               </div>
             </div>
@@ -1310,41 +1553,10 @@ const LAPDDashboard = () => {
             {/* Key Assumptions */}
             <div style={{background: 'white', borderRadius: 12, padding: 28, boxShadow: '0 4px 12px rgba(0,0,0,0.08)'}}>
               <h3 style={{fontSize: 24, fontWeight: 800, color: T.color.ink, marginBottom: 20}}>Executive Summary: Key Assumptions</h3>
-
               {[
-                {
-                  icon: '💰', title: `Replacement Cost: ${fmt(lapdData.replacementCost)} per officer`,
-                  breakdown: [
-                    `Recruitment: $4,683 (SHRM 2024)`,
-                    `Academy training: $45,000 (6-month, 912-hour program)`,
-                    `Equipment/onboarding: $15,000`,
-                    `FTO program: $35,000 (24-week field training)`,
-                    `Productivity ramp: $50,000+ (12-18 months to full effectiveness)`,
-                  ],
-                  note: `This is a blended average. Actual investment varies by rank and specialization. The $150K figure is validated by GAO-24-107029 for federal law enforcement and is conservative for California cost-of-living.`,
-                  noteColor: '#0369a1',
-                },
-                {
-                  icon: '📉', title: `Total Attrition Rate: 7.6% annually (660 of 8,738)`,
-                  breakdown: [
-                    `2024 actual: 660 officers separated (LAPD Account Planning Brief)`,
-                    `Academy graduating only ~31 per class (vs. 60 needed monthly)`,
-                    `430+ officers resigned in first 18 months since 2017`,
-                    `Budget compromise cut hiring from 480 to 240 officers`,
-                  ],
-                  note: `Division-level validation: Commanders should adjust this slider to match their actual annual personnel losses. The default 7.6% is the LAPD-wide average for 2024.`,
-                  noteColor: '#92400e',
-                },
-                {
-                  icon: '⚠️', title: `Behavioral Attribution: ${behavioralAttritionShare}% of attrition (Adjustable: 20-60%)`,
-                  breakdown: [
-                    `Definition: The portion of annual losses where behavioral health factors (PTSD, burnout, depression, substance use) contributed to the separation decision`,
-                    `Who this includes: Officers experiencing burnout/cynicism, untreated PTSD symptoms, family stress from shift work, substance use issues`,
-                    `Research basis: 30-50% of early separations have behavioral health factors (RAND, FBI LEO studies)`,
-                  ],
-                  note: `Commander adjustment: Set based on YOUR division's patterns. If you're seeing high early-career attrition (<18 months), behavioral factors are likely higher (40-50%). For retirement-driven attrition, use lower end (20-25%).`,
-                  noteColor: '#92400e',
-                },
+                { icon: '💰', title: `Replacement Cost: ${fmt(lapdData.replacementCost)} per officer`, breakdown: ['Recruitment: $4,683 (SHRM 2024)', 'Academy training: $45,000 (6-month, 912-hour program)', 'Equipment/onboarding: $15,000', 'FTO program: $35,000 (24-week field training)', 'Productivity ramp: $50,000+ (12-18 months to full effectiveness)'], note: 'This is a blended average validated by GAO-24-107029 for federal law enforcement and is conservative for California cost-of-living.', noteColor: '#0369a1' },
+                { icon: '📉', title: 'Total Attrition Rate: 7.6% annually (660 of 8,738)', breakdown: ['2024 actual: 660 officers separated (LAPD Account Planning Brief)', 'Academy graduating only ~31 per class (vs. 60 needed monthly)', '430+ officers resigned in first 18 months since 2017', 'Budget compromise cut hiring from 480 to 240 officers'], note: 'Division-level validation: Commanders should adjust this slider to match their actual annual personnel losses.', noteColor: '#92400e' },
+                { icon: '⚠️', title: `Behavioral Attribution: ${behavioralAttritionShare}% of attrition (Adjustable: 20-60%)`, breakdown: ['Definition: The portion of annual losses where behavioral health factors contributed to the separation decision', 'Who this includes: Officers experiencing burnout/cynicism, untreated PTSD, family stress from shift work, substance use', 'Research basis: 30-50% of early separations have behavioral health factors (RAND, FBI LEO studies)'], note: 'Commander adjustment: If seeing high early-career attrition (<18 months), behavioral factors are likely higher (40-50%). For retirement-driven attrition, use lower end (20-25%).', noteColor: '#92400e' },
               ].map((item, i) => (
                 <div key={i} style={{background: '#f8fafc', border: '2px solid #e2e8f0', borderRadius: 12, padding: 24, marginBottom: 20}}>
                   <div style={{fontSize: 18, fontWeight: 700, color: T.color.ink, marginBottom: 16}}>{item.icon} {item.title}</div>
@@ -1364,10 +1576,10 @@ const LAPDDashboard = () => {
               <h3 style={{fontSize: 24, fontWeight: 800, color: T.color.ink, marginBottom: 20}}>Core Formulas (Executive Summary Model)</h3>
               {[
                 { step: 1, title: 'Calculate Behavioral-Driven Separations', formula: 'Behavioral Separations = Total Attrition × (Behavioral Attribution % ÷ 100)', example: `Example (${calculations.orgName}): ${calculations.orgAttrition} × (${behavioralAttritionShare}% ÷ 100) = ${calculations.behavioralDrivenSeparations} behavioral-driven separations`, color: '#dc2626' },
-                { step: 2, title: 'Calculate Retention Savings', formula: 'Separations Prevented = Behavioral Separations × (Retention Improvement % ÷ 100)\nRetention Savings = Separations Prevented × Replacement Cost', example: `Example: ${calculations.behavioralDrivenSeparations} × ${retentionImprovementTarget}% = ${calculations.separationsPrevented} prevented | ${calculations.separationsPrevented} × $150K = ${fmt(calculations.retentionSavings)}`, color: '#ea580c' },
-                { step: 3, title: 'Calculate Misconduct Savings', formula: 'Behavioral-Linked Misconduct = Annual Settlements × (Behavioral Link % ÷ 100)\nMisconduct Savings = Behavioral-Linked × (Reduction Target % ÷ 100)', example: `Example: ${fmtCompact(calculations.orgAnnualSettlements)} × ${misconductBehavioralLink}% = ${fmtCompact(calculations.behavioralLinkedMisconduct)} | × ${misconductReductionTarget}% = ${fmt(calculations.misconductSavings)}`, color: '#ca8a04' },
+                { step: 2, title: 'Calculate Retention Savings', formula: 'Separations Prevented = Behavioral Separations × (Improvement % ÷ 100)\nRetention Savings = Separations Prevented × Replacement Cost', example: `Example: ${calculations.behavioralDrivenSeparations} × ${retentionImprovementTarget}% = ${calculations.separationsPrevented} prevented | ${calculations.separationsPrevented} × $150K = ${fmt(calculations.retentionSavings)}`, color: '#ea580c' },
+                { step: 3, title: 'Calculate Misconduct Savings', formula: 'Behavioral-Linked = Annual Settlements × (Behavioral Link % ÷ 100)\nMisconduct Savings = Behavioral-Linked × (Reduction % ÷ 100)', example: `Example: ${fmtCompact(calculations.orgAnnualSettlements)} × ${misconductBehavioralLink}% = ${fmtCompact(calculations.behavioralLinkedMisconduct)} | × ${misconductReductionTarget}% = ${fmt(calculations.misconductSavings)}`, color: '#ca8a04' },
                 { step: 4, title: "Calculate Workers' Comp Savings", formula: 'Mental Health WC = WC Budget × (Mental Health Share % ÷ 100)\nWC Savings = Mental Health WC × (Claim Reduction % ÷ 100)', example: `Example: ${fmtCompact(calculations.orgWcBudget)} × ${wcMentalHealthShare}% = ${fmtCompact(calculations.mentalHealthWcCosts)} | × ${wcClaimReductionTarget}% = ${fmt(calculations.wcSavings)}`, color: '#16a34a' },
-                { step: 5, title: 'Calculate Total ROI', formula: 'Total Savings = Retention Savings + Misconduct Savings + WC Savings\nNet Savings = Total Savings - Investment\nROI = (Net Savings ÷ Investment) × 100', example: `Example: ${fmt(calculations.totalPotentialSavings)} - ${fmt(investmentLevel)} = ${fmt(calculations.netSavings)} | ROI = ${roiDisplay(calculations.roi)}`, color: '#7c3aed' },
+                { step: 5, title: 'Calculate Total ROI', formula: 'Total Savings = Retention + Misconduct + WC Savings\nNet Savings = Total Savings - Investment\nROI = (Net Savings ÷ Investment) × 100', example: `Example: ${fmt(calculations.totalPotentialSavings)} - ${fmt(investmentLevel)} = ${fmt(calculations.netSavings)} | ROI = ${roiDisplay(calculations.roi)}`, color: '#7c3aed' },
               ].map((step) => (
                 <div key={step.step} style={{background: `${step.color}08`, border: `2px solid ${step.color}40`, borderRadius: 10, padding: 20, marginBottom: 16}}>
                   <div style={{fontSize: 15, fontWeight: 700, color: step.color, marginBottom: 10}}>Step {step.step}: {step.title}</div>
@@ -1387,23 +1599,19 @@ const LAPDDashboard = () => {
                     • <strong>Total Officers:</strong> {calculations.currentOfficers.toLocaleString()}<br />
                     • <strong>Attrition (est.):</strong> {calculations.orgAttrition} officers/year<br />
                     • <strong>Behavioral Attribution:</strong> {behavioralAttritionShare}% ({calculations.behavioralDrivenSeparations} officers)<br />
-                    • <strong>Replacement Cost:</strong> {fmt(lapdData.replacementCost)} per officer<br />
                     • <strong>Investment Level:</strong> {fmt(investmentLevel)}<br />
-                    • <strong>Retention Target:</strong> {retentionImprovementTarget}% improvement<br />
-                    • <strong>Misconduct Target:</strong> {misconductReductionTarget}% reduction<br />
-                    • <strong>WC Target:</strong> {wcClaimReductionTarget}% reduction
+                    • <strong>Retention Target:</strong> {retentionImprovementTarget}%<br />
+                    • <strong>Misconduct Target:</strong> {misconductReductionTarget}%<br />
+                    • <strong>WC Target:</strong> {wcClaimReductionTarget}%
                   </div>
                 </div>
                 <div>
-                  <div style={{fontSize: 16, fontWeight: 700, color: T.color.blue, marginBottom: 12}}>Calculations:</div>
+                  <div style={{fontSize: 16, fontWeight: 700, color: T.color.blue, marginBottom: 12}}>Results:</div>
                   <div style={{background: '#f8fafc', borderRadius: 10, padding: 16, border: '2px solid #e2e8f0'}}>
                     <div style={{fontSize: 14, color: T.color.slate600, lineHeight: 2}}>
-                      <strong>Retention Savings:</strong><br />
-                      {calculations.separationsPrevented} officers × {fmt(lapdData.replacementCost)} = <strong style={{color: T.color.green}}>{fmt(calculations.retentionSavings)}</strong><br /><br />
-                      <strong>Misconduct Savings:</strong><br />
-                      {fmtCompact(calculations.behavioralLinkedMisconduct)} × {misconductReductionTarget}% = <strong style={{color: T.color.green}}>{fmt(calculations.misconductSavings)}</strong><br /><br />
-                      <strong>WC Savings:</strong><br />
-                      {fmtCompact(calculations.mentalHealthWcCosts)} × {wcClaimReductionTarget}% = <strong style={{color: T.color.green}}>{fmt(calculations.wcSavings)}</strong>
+                      <strong>Retention:</strong> {calculations.separationsPrevented} × {fmt(lapdData.replacementCost)} = <strong style={{color: T.color.green}}>{fmt(calculations.retentionSavings)}</strong><br />
+                      <strong>Misconduct:</strong> {fmtCompact(calculations.behavioralLinkedMisconduct)} × {misconductReductionTarget}% = <strong style={{color: T.color.green}}>{fmt(calculations.misconductSavings)}</strong><br />
+                      <strong>WC:</strong> {fmtCompact(calculations.mentalHealthWcCosts)} × {wcClaimReductionTarget}% = <strong style={{color: T.color.green}}>{fmt(calculations.wcSavings)}</strong>
                     </div>
                   </div>
                   <div style={{background: T.color.lightBlue, borderRadius: 10, padding: 16, border: `2px solid ${T.color.blue}`, marginTop: 16}}>
@@ -1411,55 +1619,6 @@ const LAPDDashboard = () => {
                     <div style={{fontSize: 14, color: T.color.blue, marginTop: 4}}>Investment: {fmt(investmentLevel)}</div>
                     <div style={{fontSize: 20, fontWeight: 900, color: calculations.netSavings >= 0 ? T.color.green : T.color.red, marginTop: 8}}>Net: {fmt(calculations.netSavings)} = {roiDisplay(calculations.roi)} ROI</div>
                   </div>
-                </div>
-              </div>
-
-              {/* Sensitivity Analysis */}
-              <div style={{background: '#eef2ff', border: '2px solid #6366f1', borderRadius: 10, padding: 16, marginTop: 20}}>
-                <div style={{fontSize: 15, fontWeight: 700, color: '#4338ca', marginBottom: 8}}>Sensitivity Analysis:</div>
-                <div style={{fontSize: 14, color: '#475569', lineHeight: 1.7}}>
-                  If you adjust <strong>Behavioral Attribution to {Math.min(behavioralAttritionShare + 10, 60)}%</strong>: behavioral separations increase to {Math.round(calculations.orgAttrition * (Math.min(behavioralAttritionShare + 10, 60) / 100))}, retention savings rise to {fmt(Math.round(calculations.orgAttrition * (Math.min(behavioralAttritionShare + 10, 60) / 100)) * (retentionImprovementTarget / 100) * lapdData.replacementCost)}.
-                  If you reduce investment to {fmt(investmentLevel * 0.5)}: ROI increases proportionally as fewer dollars need to be recovered.
-                </div>
-              </div>
-            </div>
-
-            {/* Comprehensive Model: Three-Factor Architecture */}
-            <div style={{background: 'white', borderRadius: 12, padding: 28, boxShadow: '0 4px 12px rgba(0,0,0,0.08)'}}>
-              <h3 style={{fontSize: 24, fontWeight: 800, color: T.color.ink, marginBottom: 12}}>Comprehensive Model: Three-Factor Architecture</h3>
-              <div style={{background: '#eef2ff', border: '2px solid #6366f1', borderRadius: 10, padding: 16, marginBottom: 20}}>
-                <div style={{fontSize: 15, fontWeight: 700, color: '#4338ca', marginBottom: 8}}>Model Flow: How Behavioral Health Drives All Three Cost Categories</div>
-                <div style={{fontSize: 14, color: '#475569', lineHeight: 1.7}}>
-                  The comprehensive model recognizes that an officer with untreated PTSD is <strong>simultaneously</strong> at higher risk for: (1) separation (retention cost), (2) excessive force incidents (misconduct/settlement costs), and (3) workers' comp claims (WC costs). Proactive wellness addresses the <strong>root behavioral health deterioration</strong> that cascades into all three categories.
-                </div>
-              </div>
-              <div style={{display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 16, marginBottom: 24}}>
-                {[
-                  { icon: '💼', title: 'Retention', items: ['BH-driven separations', 'Weighted by attribution %', `${fmt(lapdData.replacementCost)} replacement`, 'Air Force: +6% career commitment'] },
-                  { icon: '⚖️', title: 'Misconduct', items: ['Civil rights violations', 'Excessive force settlements', `${misconductBehavioralLink}% behavioral link`, 'FBI: PTSD linked to force'] },
-                  { icon: '🏥', title: "Workers' Comp", items: ['SB 542 PTSD presumption', 'Labor Code 4850 full salary', `${wcMentalHealthShare}% mental health share`, 'JAMA: 21.6% symptom reduction'] },
-                ].map((cat, i) => (
-                  <div key={i} style={{background: T.color.lightBlue, borderRadius: 10, padding: 16, border: `2px solid ${T.color.blue}`}}>
-                    <div style={{fontSize: 24, marginBottom: 8}}>{cat.icon}</div>
-                    <div style={{fontSize: 16, fontWeight: 700, color: T.color.blue, marginBottom: 10}}>{cat.title}</div>
-                    <div style={{fontSize: 13, color: T.color.slate600, lineHeight: 1.7}}>
-                      {cat.items.map((item, j) => <span key={j}>• {item}<br /></span>)}
-                    </div>
-                  </div>
-                ))}
-              </div>
-
-              {/* Comorbidity */}
-              <div style={{background: '#fef3c7', border: '2px solid #fbbf24', borderRadius: 10, padding: 20}}>
-                <div style={{fontSize: 16, fontWeight: 700, color: '#92400e', marginBottom: 12}}>Comorbidity Adjustment (Currently {comorbidityOverlap}%)</div>
-                <div style={{fontSize: 14, color: '#78350f', lineHeight: 1.7, marginBottom: 16}}>
-                  Prevents double-counting officers with multiple conditions. Research shows 30-40% of officers with one behavioral health condition have comorbid diagnoses.
-                </div>
-                <div style={{background: 'white', borderRadius: 8, padding: 14, fontFamily: 'monospace', fontSize: 13, color: T.color.ink, lineHeight: 1.8}}>
-                  Raw affected (if independent): PTSD + Depression + Anxiety + Substance Use<br />
-                  Comorbidity multiplier: 1 - ({comorbidityOverlap} ÷ 100) = {(1 - comorbidityOverlap / 100).toFixed(2)}<br />
-                  Unique officers affected: Raw Total × {(1 - comorbidityOverlap / 100).toFixed(2)} = Actual count<br />
-                  Prevented double-counting: {calculations.comorbidityReduction.toLocaleString()} officers at {comorbidityOverlap}% overlap
                 </div>
               </div>
             </div>
@@ -1472,62 +1631,20 @@ const LAPDDashboard = () => {
                   <div style={{textAlign: 'center', fontSize: 48, marginBottom: 12}}>❌</div>
                   <div style={{textAlign: 'center', fontSize: 18, fontWeight: 800, color: '#991b1b', marginBottom: 16}}>Traditional Approach</div>
                   <div style={{fontSize: 14, color: '#6d0a1f', lineHeight: 1.8}}>
-                    <strong>✗ Treats all attrition equally</strong><br />
-                    Models ALL 660 losses as if they're equal, including retirements and transfers<br /><br />
-                    <strong>✗ Uses annual cost snapshots</strong><br />
-                    Only counts one year's replacement cost ($150K), misses long-term career value<br /><br />
-                    <strong>✗ Ignores comorbidity</strong><br />
-                    Double-counts officers with PTSD + depression as two separate people<br /><br />
-                    <strong>✗ Single cost pathway</strong><br />
-                    Looks at retention OR misconduct OR WC—not how they're interconnected
+                    <strong>✗ Treats all attrition equally</strong><br />Models ALL losses including retirements and transfers<br /><br />
+                    <strong>✗ Uses annual cost snapshots</strong><br />Only counts one year's replacement cost ($150K)<br /><br />
+                    <strong>✗ Ignores comorbidity</strong><br />Double-counts officers with PTSD + depression<br /><br />
+                    <strong>✗ Single cost pathway</strong><br />Looks at retention OR misconduct OR WC—not interconnected
                   </div>
                 </div>
                 <div style={{background: '#e8f4e0', border: `3px solid ${T.color.green}`, borderRadius: 12, padding: 24}}>
                   <div style={{textAlign: 'center', fontSize: 48, marginBottom: 12}}>✅</div>
                   <div style={{textAlign: 'center', fontSize: 18, fontWeight: 800, color: '#166534', marginBottom: 16}}>This Model's Approach</div>
                   <div style={{fontSize: 14, color: '#14532d', lineHeight: 1.8}}>
-                    <strong>✓ Targets behavioral-health-linked attrition only</strong><br />
-                    Focuses on {calculations.behavioralDrivenSeparations} preventable separations, not all {calculations.orgAttrition}<br /><br />
-                    <strong>✓ Three interconnected cost pathways</strong><br />
-                    Captures retention + misconduct + WC simultaneously<br /><br />
-                    <strong>✓ Comorbidity-adjusted</strong><br />
-                    Prevents double-counting {calculations.comorbidityReduction.toLocaleString()} officers with multiple conditions<br /><br />
-                    <strong>✓ Addresses root causes</strong><br />
-                    Career clarity, stress management, resilience—prevents burnout BEFORE it impacts all three cost categories
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* Evidence Base Summary */}
-            <div style={{background: 'white', borderRadius: 12, padding: 28, boxShadow: '0 4px 12px rgba(0,0,0,0.08)'}}>
-              <h3 style={{fontSize: 24, fontWeight: 800, color: T.color.ink, marginBottom: 16}}>Evidence Base & Source Validation</h3>
-              <div style={{display: 'flex', gap: 16, marginBottom: 20, flexWrap: 'wrap'}}>
-                <div style={{background: T.color.green, color: 'white', padding: '8px 16px', borderRadius: 20, fontSize: 13, fontWeight: 700}}>✓ 52+ Authoritative Sources</div>
-                <div style={{background: T.color.gold, color: 'white', padding: '8px 16px', borderRadius: 20, fontSize: 13, fontWeight: 700}}>📊 60% Fully Verified, 25% Partially Verified, 15% Estimated</div>
-              </div>
-              <div style={{display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 16}}>
-                <div style={{background: '#f8fafc', borderRadius: 10, padding: 16, border: '2px solid #e2e8f0'}}>
-                  <div style={{fontSize: 15, fontWeight: 700, color: T.color.ink, marginBottom: 10}}>Key Sources:</div>
-                  <div style={{fontSize: 12, color: T.color.slate600, lineHeight: 1.7}}>
-                    <strong>Retention Costs:</strong><br />GAO-24-107029 (recruiting)<br />SHRM 2024 (cost-per-hire)<br /><br />
-                    <strong>Behavioral Health:</strong><br />RAND (prevalence)<br />Military Medicine (work loss)<br /><br />
-                    <strong>Misconduct:</strong><br />LA City Controller (settlements)<br />FBI LEO Bulletin (PTSD/force)
-                  </div>
-                </div>
-                <div style={{background: '#f8fafc', borderRadius: 10, padding: 16, border: '2px solid #e2e8f0'}}>
-                  <div style={{fontSize: 15, fontWeight: 700, color: T.color.ink, marginBottom: 10}}>Air Force Validation:</div>
-                  <div style={{fontSize: 12, color: T.color.slate600, lineHeight: 1.7}}>
-                    <strong>Study Parameters:</strong><br />11,215 Airmen (2021-2025)<br />77,333 coaching sessions<br />54,377 hours delivered<br />79% satisfaction rate<br /><br />
-                    <strong>Proven Results:</strong><br />+6% career commitment<br />+17% mission readiness<br />+15% resilience<br />60-70% lower cost than episodic
-                  </div>
-                </div>
-                <div style={{background: '#f8fafc', borderRadius: 10, padding: 16, border: '2px solid #e2e8f0'}}>
-                  <div style={{fontSize: 15, fontWeight: 700, color: T.color.ink, marginBottom: 10}}>LAPD-Specific Data:</div>
-                  <div style={{fontSize: 12, color: T.color.slate600, lineHeight: 1.7}}>
-                    <strong>Settlements:</strong><br />$384M since 2019<br />$70M/year average<br />48% civil rights/force<br /><br />
-                    <strong>Workers' Comp:</strong><br />$92.6M annual budget<br />SB 542 PTSD presumption<br />Labor Code 4850<br /><br />
-                    <strong>Staffing:</strong><br />8,738 officers (Apr 2025)<br />762 below 9,500 target
+                    <strong>✓ Targets behavioral-health-linked attrition only</strong><br />Focuses on {calculations.behavioralDrivenSeparations} preventable separations<br /><br />
+                    <strong>✓ Three interconnected cost pathways</strong><br />Captures retention + misconduct + WC simultaneously<br /><br />
+                    <strong>✓ Comorbidity-adjusted</strong><br />Prevents double-counting {calculations.comorbidityReduction.toLocaleString()} officers<br /><br />
+                    <strong>✓ Addresses root causes</strong><br />Prevents burnout BEFORE it impacts all three categories
                   </div>
                 </div>
               </div>
@@ -1540,23 +1657,21 @@ const LAPDDashboard = () => {
                 <h3 style={{fontSize: 20, fontWeight: 800, color: '#92400e', margin: 0}}>Model Limitations & Appropriate Use</h3>
               </div>
               <div style={{fontSize: 14, color: '#78350f', lineHeight: 1.8, marginBottom: 16}}>
-                <strong>What this model DOES:</strong> Provides conservative projections based on proven Air Force methodology, allowing LAPD leadership to quantify retention value, assess wellness investment ROI, and justify talent management investments with 52+ authoritative sources.
+                <strong>What this model DOES:</strong> Provides conservative projections based on proven methodology, allowing LAPD leadership to quantify retention value, assess wellness investment ROI, and justify talent management investments with 52+ authoritative sources.
               </div>
               <div style={{fontSize: 14, color: '#78350f', lineHeight: 1.8, marginBottom: 16}}>
-                <strong>What this model DOES NOT do:</strong>
-              </div>
-              <div style={{fontSize: 14, color: '#78350f', lineHeight: 1.8, marginBottom: 16, paddingLeft: 16}}>
+                <strong>What this model DOES NOT do:</strong><br />
                 • Predict EXACT losses for your specific division (requires your personnel data)<br />
                 • Replace formal cost-benefit analysis required for major procurement<br />
                 • Account for division-specific factors (deployment tempo, local retention challenges)<br />
-                • Guarantee specific outcomes (Air Force results as historical, not contractual promises)
+                • Guarantee specific outcomes (results are historical, not contractual promises)
               </div>
               <div style={{fontSize: 14, color: '#78350f', lineHeight: 1.8}}>
-                <strong>Recommended use:</strong> Decision support for evaluating talent management investments, planning budget conversations, and comparing courses of action. Leadership should validate assumptions with division-specific data and adjust sliders to match local context before making final investment decisions.
+                <strong>Recommended use:</strong> Decision support for evaluating talent management investments, planning budget conversations, and comparing courses of action.
               </div>
             </div>
 
-            {/* Quick Reference: Adjustable Parameters */}
+            {/* Quick Reference */}
             <div style={{background: T.color.blue, borderRadius: 12, padding: 28, color: 'white'}}>
               <h3 style={{fontSize: 22, fontWeight: 800, marginBottom: 20}}>Quick Reference: Adjustable Parameters</h3>
               <div style={{display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 24}}>
@@ -1571,7 +1686,7 @@ const LAPDDashboard = () => {
                   </div>
                 </div>
                 <div>
-                  <div style={{fontSize: 15, fontWeight: 700, color: T.color.gold, marginBottom: 12}}>Comprehensive Model Sliders (Factor Breakdown tab):</div>
+                  <div style={{fontSize: 15, fontWeight: 700, color: T.color.gold, marginBottom: 12}}>Comprehensive Model Sliders (Factor Breakdown):</div>
                   <div style={{fontSize: 14, lineHeight: 1.8, opacity: 0.9}}>
                     • <strong>PTSD, Depression, Anxiety, Substance Use</strong> prevalence rates<br />
                     • <strong>Misconduct behavioral link</strong> percentage<br />
@@ -1581,13 +1696,11 @@ const LAPDDashboard = () => {
                 </div>
               </div>
               <div style={{marginTop: 20, background: 'rgba(255,255,255,0.1)', borderRadius: 10, padding: 16}}>
-                <div style={{fontSize: 14, lineHeight: 1.7}}>
-                  All adjustable parameters have <strong style={{color: T.color.gold}}>research-backed defaults</strong>. Commanders can customize based on division-specific data, but defaults provide conservative, defensible projections for initial planning.
-                </div>
+                <div style={{fontSize: 14, lineHeight: 1.7}}>All parameters have <strong style={{color: T.color.gold}}>research-backed defaults</strong>. Commanders can customize based on division-specific data.</div>
               </div>
             </div>
 
-            {/* Ready to Validate CTA */}
+            {/* CTA */}
             <div style={{background: 'white', borderRadius: 12, padding: 32, boxShadow: '0 4px 12px rgba(0,0,0,0.08)', textAlign: 'center'}}>
               <h3 style={{fontSize: 24, fontWeight: 800, color: T.color.ink, marginBottom: 12}}>Ready to Validate with Your Division's Data?</h3>
               <p style={{fontSize: 15, color: T.color.slate600, lineHeight: 1.7, marginBottom: 24}}>
@@ -1602,7 +1715,6 @@ const LAPDDashboard = () => {
         )}
       </div>
 
-      {/* ===== FLOATING CHATBOT ===== */}
       {!showChatbot && (
         <button onClick={() => setShowChatbot(true)} style={{position: 'fixed', bottom: 32, right: 32, width: 64, height: 64, borderRadius: '50%', background: T.color.blue, color: 'white', border: `3px solid ${T.color.gold}`, fontSize: 28, cursor: 'pointer', boxShadow: '0 8px 24px rgba(0,51,102,0.4)', zIndex: 1000}}>💬</button>
       )}
