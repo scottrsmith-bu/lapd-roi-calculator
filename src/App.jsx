@@ -141,6 +141,12 @@ const LAPDDashboard = () => {
     const currentOfficers = currentOrg.officers;
     const orgScaleFactor = currentOfficers / lapdData.officers;
 
+    // COVERAGE: Investment determines how many officers you actually reach
+    // At ~$200/seat average, investment buys seats → seats / officers = coverage
+    const avgCostPerSeat = 200;
+    const seatsAfforded = Math.round(investmentLevel / avgCostPerSeat);
+    const coverage = Math.min(1.0, seatsAfforded / currentOfficers);
+
     const rawPtsdAffected = Math.round(currentOfficers * (ptsdPrevalence / 100));
     const rawDepressionAffected = Math.round(currentOfficers * (depressionPrevalence / 100));
     const rawAnxietyAffected = Math.round(currentOfficers * (anxietyPrevalence / 100));
@@ -148,20 +154,25 @@ const LAPDDashboard = () => {
     const rawTotalAffected = rawPtsdAffected + rawDepressionAffected + rawAnxietyAffected + rawSudAffected;
     const uniqueAffected = Math.round(rawTotalAffected * (1 - comorbidityOverlap / 100));
 
+    // 1. RETENTION - scale by coverage
     const orgAttrition = Math.round(lapdData.attrition2024 * orgScaleFactor);
     const behavioralDrivenSeparations = Math.round(orgAttrition * (behavioralAttritionShare / 100));
     const retentionBaseCost = behavioralDrivenSeparations * lapdData.replacementCost;
-    const separationsPrevented = Math.round(behavioralDrivenSeparations * (retentionImprovementTarget / 100));
+    const maxSeparationsPrevented = Math.round(behavioralDrivenSeparations * (retentionImprovementTarget / 100));
+    const separationsPrevented = Math.round(maxSeparationsPrevented * coverage);
     const retentionSavings = separationsPrevented * lapdData.replacementCost;
 
+    // 2. MISCONDUCT - scale by coverage
     const orgAnnualSettlements = Math.round(lapdData.annualSettlements * orgScaleFactor);
     const behavioralLinkedMisconduct = Math.round(orgAnnualSettlements * (misconductBehavioralLink / 100));
-    const misconductSavings = Math.round(behavioralLinkedMisconduct * (misconductReductionTarget / 100));
+    const misconductSavings = Math.round(behavioralLinkedMisconduct * (misconductReductionTarget / 100) * coverage);
 
+    // 3. WORKERS' COMP - scale by coverage
     const orgWcBudget = Math.round(lapdData.annualWcBudget * orgScaleFactor);
     const mentalHealthWcCosts = Math.round(orgWcBudget * (wcMentalHealthShare / 100));
-    const wcSavings = Math.round(mentalHealthWcCosts * (wcClaimReductionTarget / 100));
+    const wcSavings = Math.round(mentalHealthWcCosts * (wcClaimReductionTarget / 100) * coverage);
 
+    // TOTALS
     const totalAnnualProblemCost = retentionBaseCost + behavioralLinkedMisconduct + mentalHealthWcCosts;
     const totalPotentialSavings = retentionSavings + misconductSavings + wcSavings;
     const netSavings = totalPotentialSavings - investmentLevel;
@@ -172,6 +183,7 @@ const LAPDDashboard = () => {
 
     return {
       currentOfficers, orgName: currentOrg.name, orgType: currentOrg.type, orgScaleFactor,
+      coverage, seatsAfforded,
       rawTotalAffected, uniqueAffected, comorbidityReduction: rawTotalAffected - uniqueAffected,
       orgAttrition, behavioralDrivenSeparations, retentionBaseCost, separationsPrevented, retentionSavings,
       orgAnnualSettlements, behavioralLinkedMisconduct, misconductSavings,
@@ -755,7 +767,7 @@ const LAPDDashboard = () => {
               <div style={{ background: 'white', border: `3px solid ${calculations.netSavings >= 0 ? T.color.green : T.color.red}`, borderRadius: 12, padding: '24px 32px', textAlign: 'center', marginBottom: 24 }}>
                 <div style={{fontSize: 18, fontWeight: 600, color: T.color.slate600, marginBottom: 8}}>Estimated Annual Net Savings for {calculations.orgName}</div>
                 <div style={{fontSize: 56, fontWeight: 900, color: calculations.netSavings >= 0 ? T.color.green : T.color.red, marginBottom: 8}}>{fmt(calculations.netSavings)}</div>
-                <div style={{fontSize: 16, color: T.color.slate600}}>ROI: <strong style={{color: calculations.netSavings >= 0 ? T.color.green : T.color.red}}>{roiDisplay(calculations.roi)}</strong> • Savings: {fmt(calculations.totalPotentialSavings)} • Investment: {fmt(calculations.investmentLevel)}</div>
+                <div style={{fontSize: 16, color: T.color.slate600}}>ROI: <strong style={{color: calculations.netSavings >= 0 ? T.color.green : T.color.red}}>{roiDisplay(calculations.roi)}</strong> • Savings: {fmt(calculations.totalPotentialSavings)} • Investment: {fmt(calculations.investmentLevel)} • Coverage: <strong>{(calculations.coverage * 100).toFixed(0)}%</strong> ({calculations.seatsAfforded.toLocaleString()} seats)</div>
               </div>
               <div style={{background: 'white', borderRadius: 12, padding: 20, marginBottom: 20}}>
                 <label style={{display: 'block', fontSize: 16, fontWeight: 700, color: T.color.ink, marginBottom: 12}}>Annual Investment: {fmt(investmentLevel)}</label>
