@@ -513,26 +513,18 @@ const LAPDDashboard = () => {
             ) : (
               <div style={{display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 24}}>
                 {[
-                  { id: 'field-retention', icon: '💼', title: '2024 Officer Attrition', value: calculations.orgAttrition, expandContent: `LAPD-wide experienced 660 officer separations in 2024, while academy classes graduated only ~31 officers per class (vs. 60 needed). For ${calculations.orgName}, this translates to an estimated ${calculations.orgAttrition} separations, with ${calculations.behavioralDrivenSeparations} (${behavioralAttritionShare}%) having behavioral health factors contributing.` },
-                  { id: 'field-misconduct', icon: '⚖️', title: 'Settlement Costs', value: fmtCompact(calculations.orgAnnualSettlements), expandContent: `LAPD-wide has paid ${fmt(lapdData.totalSettlementsSince2019)} in settlements since 2019, averaging ${fmtCompact(lapdData.annualSettlements)}/year. For ${calculations.orgName}, proportional estimate is ${fmtCompact(calculations.orgAnnualSettlements)}/year.` },
-                  { id: 'field-wc', icon: '🏥', title: "Workers' Comp Budget", value: fmtCompact(calculations.orgWcBudget), expandContent: `LAPD-wide workers' comp budget is ${fmt(lapdData.annualWcBudget)}. For ${calculations.orgName}, proportional budget is ${fmt(calculations.orgWcBudget)}. Under California's SB 542 PTSD presumption, mental health claims are estimated at ${wcMentalHealthShare}% (${fmtCompact(calculations.mentalHealthWcCosts)}).` },
+                  { id: 'field-retention', icon: '💼', title: '2024 Officer Attrition', value: calculations.orgAttrition, content: `LAPD-wide experienced 660 officer separations in 2024, while academy classes graduated only ~31 officers per class (vs. 60 needed). For ${calculations.orgName}, this translates to an estimated ${calculations.orgAttrition} separations, with ${calculations.behavioralDrivenSeparations} (${behavioralAttritionShare}%) having behavioral health factors contributing.` },
+                  { id: 'field-misconduct', icon: '⚖️', title: 'Settlement Costs', value: fmtCompact(calculations.orgAnnualSettlements), content: `LAPD-wide has paid ${fmt(lapdData.totalSettlementsSince2019)} in settlements since 2019, averaging ${fmtCompact(lapdData.annualSettlements)}/year. For ${calculations.orgName}, proportional estimate is ${fmtCompact(calculations.orgAnnualSettlements)}/year.` },
+                  { id: 'field-wc', icon: '🏥', title: "Workers' Comp Budget", value: fmtCompact(calculations.orgWcBudget), content: `LAPD-wide workers' comp budget is ${fmt(lapdData.annualWcBudget)}. For ${calculations.orgName}, proportional budget is ${fmt(calculations.orgWcBudget)}. Under California's SB 542 PTSD presumption, mental health claims are estimated at ${wcMentalHealthShare}% (${fmtCompact(calculations.mentalHealthWcCosts)}).` },
                 ].map((card) => (
-                  <div key={card.id} style={{background: 'white', borderRadius: 12, overflow: 'hidden', boxShadow: '0 4px 12px rgba(0,0,0,0.08)', border: expandedFactor === card.id ? `3px solid ${T.color.blue}` : '2px solid #cbd5e1'}}>
-                    <div onClick={() => setExpandedFactor(expandedFactor === card.id ? null : card.id)} style={{padding: 24, background: expandedFactor === card.id ? T.color.lightBlue : 'white', cursor: 'pointer'}}>
-                      <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start'}}>
-                        <div style={{flex: 1}}>
-                          <div style={{fontSize: 18, fontWeight: 700, color: T.color.blue, marginBottom: 12}}>{card.icon} {card.title}</div>
-                          <div style={{fontSize: 42, fontWeight: 900, color: T.color.ink, marginBottom: 8}}>{card.value}</div>
-                          <div style={{fontSize: 13, color: '#64748b'}}>{expandedFactor === card.id ? 'Click to collapse' : 'Click for details'}</div>
-                        </div>
-                        <div style={{fontSize: 32, color: T.color.blue, marginLeft: 12}}>{expandedFactor === card.id ? '−' : '+'}</div>
-                      </div>
+                  <div key={card.id} style={{background: 'white', borderRadius: 12, overflow: 'hidden', boxShadow: '0 4px 12px rgba(0,0,0,0.08)', border: `2px solid ${T.color.blue}`}}>
+                    <div style={{padding: 24, background: T.color.lightBlue}}>
+                      <div style={{fontSize: 18, fontWeight: 700, color: T.color.blue, marginBottom: 12}}>{card.icon} {card.title}</div>
+                      <div style={{fontSize: 42, fontWeight: 900, color: T.color.ink}}>{card.value}</div>
                     </div>
-                    {expandedFactor === card.id && (
-                      <div style={{padding: 24, paddingTop: 0, background: '#f8fafc', borderTop: `2px solid ${T.color.lightBlue}`}}>
-                        <div style={{fontSize: 14, color: T.color.slate600, marginBottom: 16, lineHeight: 1.6}}>{card.expandContent}</div>
-                      </div>
-                    )}
+                    <div style={{padding: '16px 24px 24px', background: '#f8fafc'}}>
+                      <div style={{fontSize: 14, color: T.color.slate600, lineHeight: 1.6}}>{card.content}</div>
+                    </div>
                   </div>
                 ))}
               </div>
