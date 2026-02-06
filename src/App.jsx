@@ -232,13 +232,13 @@ const LAPDDashboard = () => {
             <div style={{ width: 72, height: 72, minWidth: 72, background: T.color.gold, borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', border: '3px solid white', fontSize: 18, fontWeight: 900, color: T.color.blue, flexShrink: 0 }}>LAPD</div>
             <div>
               <h1 style={{fontSize: 28, fontWeight: 900, color: T.color.gold, margin: 0, lineHeight: 1.2}}>LAPD Workforce Sustainability Calculator</h1>
-              <p style={{fontSize: 14, color: '#94a3b8', margin: '4px 0 0 0'}}>Cost Modeling for Officer Wellness Investment Decisions</p>
+              <p style={{fontSize: 14, color: '#94a3b8', margin: '4px 0 0 0'}}>Decision Support Tool for Officer Wellness Investment Planning</p>
             </div>
           </div>
 
           <div style={{ background: 'rgba(0,51,102,0.4)', borderRadius: 12, padding: '16px 20px', border: `2px solid ${T.color.gold}50` }}>
             <p style={{fontSize: 14, color: 'white', lineHeight: 1.7, margin: 0}}>
-              <strong style={{color: T.color.gold}}>Evidence-based cost modeling tool</strong> supporting LAPD leadership in evaluating the financial impact of proactive officer wellness investments. Addresses three interconnected cost drivers: <strong style={{color: T.color.gold}}>(1) retention costs</strong> from behavioral health-driven separations, <strong style={{color: T.color.gold}}>(2) misconduct settlements</strong> linked to officer wellness challenges, and <strong style={{color: T.color.gold}}>(3) workers' comp</strong> mental health claims under California's SB 542 framework.
+              This calculator is designed as a <strong style={{color: T.color.gold}}>collaborative tool</strong> for use in partnership with LAPD leadership to explore the potential financial impact of investing in officer development and wellness—<strong style={{color: T.color.gold}}>complementing, not replacing</strong>, LAPD's existing programs (MEU, SMART teams, BSS, EAP, POWER). It models three cost areas where behavioral health investments may reduce preventable losses: <strong style={{color: T.color.gold}}>(1) retention</strong> from behavioral health-driven separations, <strong style={{color: T.color.gold}}>(2) misconduct settlements</strong> linked to officer wellness, and <strong style={{color: T.color.gold}}>(3) workers' comp</strong> mental health claims under California's SB 542 framework. All assumptions are adjustable and intended to be validated with LAPD's own data.
             </p>
           </div>
 
